@@ -34,6 +34,8 @@ app.use(flash());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+require('./helpers/functionsAndFriends');
+
 app.use('/', index);
 app.use('/users', users);
 

@@ -37,6 +37,17 @@ router.post('/signupAction', passport.authenticate('signupConfig', {
 }));
 
 
+// GET results page
+router.get('/results', function(req, res, next) {
+    res.render('results')
+});
+
+
+
+// GET typing page
+router.get('/typethis', function(req, res, next) {
+    res.render('typethis')
+});
 
 
 
