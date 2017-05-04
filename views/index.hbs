@@ -1,2 +1,17 @@
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
+
+<!--TODO add IF statement to determine if logged in or not -->
+<!--TODO showing off the goods-->
+
+
+<table>
+    <tr> <th>Username</th><th>Time</th><th># Err</th><th>% Acc</th><th>Best __</th> </tr>
+    {{#if data}}
+<!--TODO not sure if can pass tr with td or just td...-->
+        {{data}}
+    {{else}}
+        No data to show.
+    {{/if}}
+
+</table>
