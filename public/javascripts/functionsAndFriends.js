@@ -1,22 +1,22 @@
 function addMyListeners() {
 
-    $('#playBtn').addEventListener('click', function () {
+    $('#playBtn').click(function() {
         console.log('play button pressed')
     });
 
-    $('#loginBtn').addEventListener('click', function () {
+    $('#loginBtn').click(function () {
         console.log('login button pressed')
     });
 
-    $('#homeBtn').addEventListener('click', function () {
+    $('#homeBtn').click(function () {
         console.log('home button pressed')
     });
 
-    $('#anotherBtn').addEventListener('click', function () {
+    $('#anotherBtn').click(function () {
         console.log('another button pressed')
     });
 
-    $('#doneBtn').addEventListener('click', function () {
+    $('#doneBtn').click(function () {
         console.log('done button pressed')
     });
 }

@@ -33,8 +33,8 @@ app.use(flash());
 
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
-require('./public/javascripts/functionsAndFriends');
+// app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
+// require('./public/javascripts/functionsAndFriends');
 
 app.use('/', index);
 app.use('/users', users);
