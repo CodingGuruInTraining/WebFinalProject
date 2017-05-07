@@ -5,14 +5,16 @@
 <!--TODO showing off the goods-->
 
 
-<tr>
+<table>
 <!--TODO move all table stuff into handlebars once finalized    -->
     <tr> <th>Username</th><th>Time</th><th># Err</th><th>% Acc</th><th>Best (something}</th> </tr>
     {{#if data}}
 <!--TODO not sure if can pass tr with td or just td...-->
         {{data}}
     {{else}}
+            <!--Puts above table headers if the tr element tags aren't added-->
            <br> <tr>No data to show.</tr>
+        <tr><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
     {{/if}}
 
 </table>

@@ -5,7 +5,7 @@ var passport = require('passport');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: '_____ Stat Tracker' });
+  res.render('index', { title: 'Speed Typing Stat Tracker' });
 });
 
 

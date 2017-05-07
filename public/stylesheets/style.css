@@ -1,8 +1,21 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 16px Rockwell;
+  /*"Lucida Grande", Helvetica, Arial, sans-serif;*/
+  background-color: rgba(255,184,113,0.8);
 }
 
 a {
   color: #00B7FF;
+}
+
+table {
+    font: 14px Rockwell;
+    border-collapse: collapse;
+}
+
+th {
+    border: 2px solid black;
+    padding: 4px;
+    border-spacing: 0.1px;
 }
