@@ -13,6 +13,8 @@ var passport = require('passport');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
+var serverCode = require('./helpers/serverScript');
+
 var app = express();
 
 // view engine setup
