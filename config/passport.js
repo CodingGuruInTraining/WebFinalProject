@@ -13,7 +13,7 @@ module.exports = function(passport) {
         })
     });
 
-    passport.use('local-signup', new aLocalStrategy({
+    passport.use('local-signup', new LocalStrategy({
         usernameField: 'username',
         passwordField: 'password',
         passReqToCallback: true
@@ -62,9 +62,3 @@ module.exports = function(passport) {
     }));
 };
 
-
-
-
-
-
-// module.exports = newUserValidation;
