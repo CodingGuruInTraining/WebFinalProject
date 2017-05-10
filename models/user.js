@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 
 var userSchema = mongoose.Schema({
-    localUser : {
+    local : {
         username: String,
         password: String
     }
@@ -18,9 +18,9 @@ userSchema.methods.generateHash = function(password) {
 userSchema.methods.validPassword = function(password) {
     // Create hash of entered password and compares to stored hash.
     // 'localUser' matches name given when defining schema.
-    return bcrypt.compareSync(password, this.localUser.password);
+    return bcrypt.compareSync(password, this.local.password);
 };
 
-Userobj = mongoose.model('aUser', userSchema);
+User = mongoose.model('User', userSchema);
 
-module.exports = Userobj;
+module.exports = User;

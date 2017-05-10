@@ -1,3 +1,5 @@
+// var errorCount;
+
 function addMyListeners() {
 
     $('#playBtn').click(function() {
@@ -18,6 +20,29 @@ function addMyListeners() {
 
     $('#doneBtn').click(function () {
         console.log('done button pressed')
+    });
+
+    $('#typedMsg').keypress(function() {
+
+        var setString = $('#msgToType').text();
+        console.log('set: ' + setString);
+
+        var typedString = $('#typedMsg').val();
+        console.log('typed: ' + typedString)
+
+        if (setString == typedString) {
+            console.log('equal strings');
+        }
+
+        for (var i = 0; i < typedString.length; i++) {
+            if (setString.charAt(i) != typedString.charAt(i)) {
+                typedString = typedString.slice(0, -1);
+                console.log('nope, new string: ' + typedString);
+                $('#typedMsg').val(typedString);
+                return;
+            }
+        }
+
     });
 }
 
