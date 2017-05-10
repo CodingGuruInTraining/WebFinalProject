@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-
+var quoteGrab = require('../helpers/quoteGrabber');
+var quotes;
 
 /* GET home page. */
 router.get('/', isLoggedIn, function(req, res, next) {
@@ -17,7 +18,7 @@ router.get('/login', function(req, res, next) {
     res.render('login', { title: 'title here' });
 });
 // POST login action
-router.post('/loginAction', passport.authenticate('loginConfig', {
+router.post('/login', passport.authenticate('loginConfig', {
     goodlogin: '/',
     badlogin: '/login',
     failureFlash: true
@@ -46,7 +47,24 @@ router.get('/results', function(req, res, next) {
 
 // GET typing page
 router.get('/typethis', function(req, res, next) {
-    res.render('typethis')
+
+// console.log("start of route");
+    if (!quotes) {
+        quoteGrab(function (data, error) {
+            if (error) {
+                return res.render('error', { error: error.message});
+            }
+            console.log("console.logs");
+            console.log(data[1]);
+            console.log(data);
+            var randNum = Math.floor((Math.random() * data.count));
+            console.log(randNum);
+            return res.render('typethis', {messageToType: data[randNum]})
+        });
+    }
+
+
+    // res.render('typethis')
 });
 
 // Makes a function to check authentication before continuing.
