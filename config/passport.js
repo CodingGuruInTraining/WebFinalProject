@@ -40,7 +40,7 @@ module.exports = function(passport) {
         })
     }));
 
-    passport.use('login-login', new LocalStrategy({
+    passport.use('local-login', new LocalStrategy({
         usernameField: 'username',
         passwordField: 'password',
         passReqToCallback: true

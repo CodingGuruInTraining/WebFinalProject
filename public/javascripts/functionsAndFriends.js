@@ -21,14 +21,18 @@ function addMyListeners() {
 
     $('#startBtn').click(function() {
         console.log('start button pressed');
-        console.log($('#timer').text);
+        // console.log($('#timer').getText());
+        // console.log($('#timer').text());
+        // console.log($('#timer').value);
+        // console.log(valueOf($('#timer')));
+        // console.log($('#timer').innerText);
         setInterval(function() {
             console.log(elapsedTime);
             elapsedTime++;
-            var minutes = elapsedTime / 60;
-            var seconds = elapsedTime % 60;
+            var minutes = Math.floor(elapsedTime / 60);
+            var seconds = Math.floor(elapsedTime % 60);
             if (seconds < 10) { seconds = "0" + seconds; }
-            $('#timer').text = minutes + ":" + seconds;
+            $('#timer').text(minutes + ":" + seconds);
         }, 1000)
     });
 

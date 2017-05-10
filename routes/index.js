@@ -6,9 +6,15 @@ var quotes;
 
 /* GET home page. */
 router.get('/', isLoggedIn, function(req, res, next) {
-  res.render('index', { title: 'Speed Typing Stat Tracker' });
+  res.redirect('/table');
+    // res.render('index', { title: 'Speed Typing Stat Tracker' });
 });
 
+
+
+router.get('/table', isLoggedIn, function(req, res, next) {
+    res.render('table', {title: "Speed Typing Stat Tracker"});
+});
 
 
 
@@ -18,8 +24,8 @@ router.get('/login', function(req, res, next) {
     res.render('login', { title: 'title here' });
 });
 // POST login action
-router.post('/login', passport.authenticate('loginConfig', {
-    successRedirect: '/',
+router.post('/login', passport.authenticate('local-login', {
+    successRedirect: '/table',
     failureRedirect: '/login',
     failureFlash: true
 }));
@@ -32,7 +38,7 @@ router.get('/signup', function(req, res, next) {
 });
 // POST signup action
 router.post('/signup', passport.authenticate('local-signup', {
-    successRedirect: '/',
+    successRedirect: '/table',
     failureRedirect: '/signup',
     failureFlash: true
 }));
@@ -43,6 +49,12 @@ router.get('/results', function(req, res, next) {
     res.render('results')
 });
 
+
+// GET logout
+router.get('/logout', function(req, res, next) {
+    req.logout();
+    res.redirect('/');
+});
 
 
 // GET typing page
