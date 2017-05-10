@@ -1,5 +1,5 @@
-var aLocalStrategy = require('passport-local');
-var aUserobj = require('../models/user');
+var LocalStrategy = require('passport-local');
+var User = require('../models/user');
 
 module.exports = function(passport) {
 // function newUserValidation(passport) {
@@ -8,28 +8,28 @@ module.exports = function(passport) {
     });
 
     passport.deserializeUser(function(id, done) {
-        aUserobj.findById(id, function(err, user) {
+        User.findById(id, function(err, user) {
             done(err, user);
         })
     });
 
-    passport.use('signupConfig', new aLocalStrategy({
+    passport.use('local-signup', new aLocalStrategy({
         usernameField: 'username',
         passwordField: 'password',
         passReqToCallback: true
     }, function(req, username, password, done) {
         process.nextTick(function() {
-            aUserobj.findOne({ 'localUser.username' : username }, function(err, user) {
+            User.findOne({ 'local.username' : username }, function(err, user) {
                 if (err) {
                     return done(err);
                 }
                 if (user) {
-                    return done(null, false, req.flash('nameTakenMsg', 'This username is already taken'));
+                    return done(null, false, req.flash('signupMsg', 'This username is already taken'));
                 }
 
-                var newUser = new aUserobj();
-                newUser.localUser.username = username;
-                newUser.localUser.password = newUser.generateHash(password);
+                var newUser = new User();
+                newUser.local.username = username;
+                newUser.local.password = newUser.generateHash(password);
                 newUser.save(function(err) {
                     if (err) {
                         return done(err);
@@ -40,21 +40,21 @@ module.exports = function(passport) {
         })
     }));
 
-    passport.use('loginConfig', new aLocalStrategy({
+    passport.use('login-login', new LocalStrategy({
         usernameField: 'username',
         passwordField: 'password',
         passReqToCallback: true
     }, function(req, username, password, done) {
         process.nextTick(function() {
-            aUserobj.findOne({ 'localUser.username' : username }, function(err, user) {
+            User.findOne({ 'local.username' : username }, function(err, user) {
                 if (err) {
                     return done(err);
                 }
                 if (!user) {
-                    return done(null, false, req.flash('nameNotFoundMsg', 'Username or password is incorrect'));
+                    return done(null, false, req.flash('loginMsg', 'Username or password is incorrect'));
                 }
                 if (!user.validPassword(password)) {
-                    return done(null, false, req.flash('wrongPwMsg', 'Username or password is incorrect'));
+                    return done(null, false, req.flash('loginMsg', 'Username or password is incorrect'));
                 }
                 return done(null, user);
             });
