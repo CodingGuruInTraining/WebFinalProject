@@ -19,8 +19,8 @@ router.get('/login', function(req, res, next) {
 });
 // POST login action
 router.post('/login', passport.authenticate('loginConfig', {
-    goodlogin: '/',
-    badlogin: '/login',
+    successRedirect: '/',
+    failureRedirect: '/login',
     failureFlash: true
 }));
 
@@ -31,9 +31,9 @@ router.get('/signup', function(req, res, next) {
     res.render('signup')
 });
 // POST signup action
-router.post('/signupAction', passport.authenticate('signupConfig', {
-    goodsignup: '/',
-    badsignup: '/signup',
+router.post('/signup', passport.authenticate('signupConfig', {
+    successRedirect: '/',
+    failureRedirect: '/signup',
     failureFlash: true
 }));
 
@@ -49,8 +49,9 @@ router.get('/results', function(req, res, next) {
 router.get('/typethis', function(req, res, next) {
 
 // console.log("start of route");
-    if (!quotes) {
+//     if (!quotes) {
         quoteGrab(function (data, error) {
+            console.log("inside function");
             if (error) {
                 return res.render('error', { error: error.message});
             }
@@ -61,7 +62,7 @@ router.get('/typethis', function(req, res, next) {
             console.log(randNum);
             return res.render('typethis', {messageToType: data[randNum]})
         });
-    }
+    // }
 
 
     // res.render('typethis')

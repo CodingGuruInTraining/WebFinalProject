@@ -1,7 +1,8 @@
 var aLocalStrategy = require('passport-local');
 var aUserobj = require('../models/user');
 
-function newUserValidation(passport) {
+module.exports = function(passport) {
+// function newUserValidation(passport) {
     passport.serializeUser(function(user, done) {
         done(null, user.id);
     });
@@ -59,11 +60,11 @@ function newUserValidation(passport) {
             });
         });
     }));
-}
+};
 
 
 
 
 
 
-module.exports = newUserValidation;
+// module.exports = newUserValidation;

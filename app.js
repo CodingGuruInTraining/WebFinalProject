@@ -13,6 +13,7 @@ var passport = require('passport');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
+var quoteCode = require('./helpers/quoteGrabber');
 var serverCode = require('./helpers/serverScript');
 
 var app = express();
