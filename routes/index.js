@@ -50,22 +50,22 @@ router.get('/typethis', function(req, res, next) {
 
 // console.log("start of route");
 //     if (!quotes) {
-        quoteGrab(function (data, error) {
-            console.log("inside function");
-            if (error) {
-                return res.render('error', { error: error.message});
-            }
-            console.log("console.logs");
-            console.log(data[1]);
-            console.log(data);
-            var randNum = Math.floor((Math.random() * data.count));
-            console.log(randNum);
-            return res.render('typethis', {messageToType: data[randNum]})
-        });
+//         quoteGrab(function (data, error) {
+//             console.log("inside function");
+//             if (error) {
+//                 return res.render('error', { error: error.message});
+//             }
+//             console.log("console.logs");
+//             console.log(data[1]);
+//             console.log(data);
+//             var randNum = Math.floor((Math.random() * data.count));
+//             console.log(randNum);
+//             return res.render('typethis', {messageToType: data[randNum]})
+//         });
     // }
 
 
-    // res.render('typethis')
+    res.render('typethis')
 });
 
 // Makes a function to check authentication before continuing.

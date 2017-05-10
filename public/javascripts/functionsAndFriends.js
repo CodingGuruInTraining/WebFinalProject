@@ -22,10 +22,13 @@ function addMyListeners() {
         console.log('done button pressed')
     });
 
-    $('#typedMsg').keypress(function() {
+    $('#typedMsg').keyup(function() {
 
         var setString = $('#msgToType').text();
         console.log('set: ' + setString);
+
+// for testing:
+        setString = "this is a string!"
 
         var typedString = $('#typedMsg').val();
         console.log('typed: ' + typedString)
