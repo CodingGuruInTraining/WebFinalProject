@@ -1,5 +1,6 @@
 // var errorCount;
 var elapsedTime = 0;
+var theInterval;
 
 function addMyListeners() {
 
@@ -21,23 +22,23 @@ function addMyListeners() {
 
     $('#startBtn').click(function() {
         console.log('start button pressed');
-        // console.log($('#timer').getText());
-        // console.log($('#timer').text());
-        // console.log($('#timer').value);
-        // console.log(valueOf($('#timer')));
-        // console.log($('#timer').innerText);
-        setInterval(function() {
-            console.log(elapsedTime);
-            elapsedTime++;
-            var minutes = Math.floor(elapsedTime / 60);
-            var seconds = Math.floor(elapsedTime % 60);
-            if (seconds < 10) { seconds = "0" + seconds; }
-            $('#timer').text(minutes + ":" + seconds);
-        }, 1000)
+        if (theInterval == null) {
+            theInterval = setInterval(function () {
+                console.log(elapsedTime);
+                elapsedTime++;
+                var minutes = Math.floor(elapsedTime / 60);
+                var seconds = Math.floor(elapsedTime % 60);
+                if (seconds < 10) {
+                    seconds = "0" + seconds;
+                }
+                $('#timer').text(minutes + ":" + seconds);
+            }, 1000)
+        }
     });
 
     $('#doneBtn').click(function () {
-        console.log('done button pressed')
+        console.log('done button pressed');
+        clearInterval(theInterval);
     });
 
     $('#typedMsg').keyup(function() {
@@ -49,7 +50,7 @@ function addMyListeners() {
         setString = "this is a string!"
 
         var typedString = $('#typedMsg').val();
-        console.log('typed: ' + typedString)
+        console.log('typed: ' + typedString);
 
         if (setString == typedString) {
             console.log('equal strings');
@@ -68,3 +69,6 @@ function addMyListeners() {
 }
 
 addMyListeners();
+
+// helpers:
+// http://stackoverflow.com/questions/109086/stop-setinterval-call-in-javascript

@@ -57,7 +57,16 @@ router.get('/logout', function(req, res, next) {
 });
 
 
+// POST typing page's ACTION
+router.post('/typethisAction', function(req, res) {
+   // console.log(req.body);
+    // console.log(req.query);
+});
+
+
+
 // GET typing page
+// TODO add isLoggedIn once authentication is working.
 router.get('/typethis', function(req, res, next) {
 
 console.log("start of route");
@@ -65,18 +74,19 @@ console.log("start of route");
         quoteGrab(function (data, error) {
             console.log("inside function");
             if (error) {
-                return res.render('error', { error: error.message});
+                res.render('error', { error: error.message});
             }
             console.log("console.logs");
             console.log(data[1]);
             console.log(data);
             var randNum = Math.floor((Math.random() * data.count));
             console.log(randNum);
-            return res.render('typethis', {messageToType: data[randNum]})
+            res.render('typethis', { username: req.user.local.username,
+                messageToType: data[randNum] })
         });
     }
 
-
+    console.log("didn't find anything");
     res.render('typethis')
 });
 

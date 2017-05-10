@@ -4,6 +4,7 @@
     <br>
     <p>Read the text below and type it in the text field. Click on the 'Start' button when you are ready to begin.</p>
     <br>
+    <form action="/typethisAction" method="post">
     <p id="msgToType">{{messageToType}}</p>
     <label for="typedMsg">Type here: </label>
     <input type="text" id="typedMsg"/>
@@ -11,4 +12,5 @@
     <button type="button" id="startBtn" name="btnStart">Start</button>
 
     <button type="submit" id="doneBtn" name="btnDone">Done!</button>
+    </form>
 </div>
