@@ -1,4 +1,5 @@
 // var errorCount;
+var elapsedTime = 0;
 
 function addMyListeners() {
 
@@ -16,6 +17,19 @@ function addMyListeners() {
 
     $('#anotherBtn').click(function () {
         console.log('another button pressed')
+    });
+
+    $('#startBtn').click(function() {
+        console.log('start button pressed');
+        console.log($('#timer').text);
+        setInterval(function() {
+            console.log(elapsedTime);
+            elapsedTime++;
+            var minutes = elapsedTime / 60;
+            var seconds = elapsedTime % 60;
+            if (seconds < 10) { seconds = "0" + seconds; }
+            $('#timer').text = minutes + ":" + seconds;
+        }, 1000)
     });
 
     $('#doneBtn').click(function () {
