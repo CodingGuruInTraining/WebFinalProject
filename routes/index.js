@@ -66,7 +66,7 @@ router.get('/logout', function(req, res, next) {
 
 
 // POST typing page's ACTION
-router.post('/typethisAction', function(req, res) {
+router.post('/typethisaction', function(req, res) {
 // TODO make typingRound object (maybe just replace with user object)
 // TODO query db for all records of user
 // TODO show results page
@@ -102,18 +102,23 @@ console.log("start of route");
             if (error) {
                 res.render('error', { error: error.message});
             }
-            console.log("console.logs");
-            console.log(data[1]);
-            console.log(data);
-            var randNum = Math.floor((Math.random() * data.count));
+            // console.log("console.logs");
+            // console.log(data[1]);
+            // console.log(data);
+            // console.log(data.count + " count");
+            console.log(Object.keys(data).length);
+            var datacount = Object.keys(data).length;
+            var randNum = Math.floor((Math.random() * (datacount-1)));
             console.log(randNum);
-            res.render('typethis', { username: req.user.local.username,
-                messageToType: data[randNum] })
+            console.log(data[randNum]);
+            res.render('typethis', { // username: req.user.local.username,
+                msgToType: data[randNum] });
+            // res.render('typethis');
         });
     }
 
     console.log("didn't find anything");
-    res.render('typethis')
+    // res.render('typethis')
 });
 
 // Makes a function to check authentication before continuing.
@@ -125,3 +130,9 @@ function isLoggedIn(req, res, next) {
 }
 
 module.exports = router;
+
+
+
+
+// helpers:
+//     http://stackoverflow.com/questions/13782698/get-total-number-of-items-on-json-object

@@ -1,6 +1,6 @@
 var request = require('request');
 
-var baseURL = "http://ron-swanson-quotes.herokuapp.com/v2/quotes";
+var baseURL = "http://ron-swanson-quotes.herokuapp.com/v2/quotes/";
 
 function quoteRequest(callback) {
     var hundred = 100;

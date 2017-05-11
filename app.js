@@ -14,7 +14,7 @@ var MongoDBStore = require('connect-mongodb-session')(session);
 var index = require('./routes/index');
 var users = require('./routes/users');
 
-var quoteCode = require('./helpers/quoteGrabber');
+var quoteGrab = require('./helpers/quoteGrabber');
 var serverCode = require('./helpers/serverScript');
 
 var app = express();
@@ -34,7 +34,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var url = 'mongodb://localhost:27017/spddata';
+var url = process.env.MDB; // 'mongodb://localhost:27017/spddata';
 var session_url = 'mongodb://localhost:27017/spddata_sessions';
 
 app.use(session({
@@ -49,6 +49,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+
 mongoose.connect(url);
 
 
@@ -57,6 +58,7 @@ mongoose.connect(url);
 
 app.use('/', index);
 app.use('/users', users);
+app.use('./helpers/quoteGrabber', quoteGrab);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
