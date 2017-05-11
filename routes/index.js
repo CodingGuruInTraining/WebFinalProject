@@ -16,7 +16,15 @@ router.get('/table', isLoggedIn, function(req, res, next) {
     res.render('table', {title: "Speed Typing Stat Tracker"});
 });
 
-
+// Should GET all database items and send them somewhere, hopefully the table.
+router.get('/fillAll', function(req, res, next) {
+    req.db.collection('records').find().toArray(function(err, docs) {
+        if (err) {
+            return next(err)
+        }
+        res.json(docs);
+    });
+});
 
 
 // GET login page
@@ -75,7 +83,10 @@ router.get('/playAction', function(req, res) {
 
 router.post('/typingSubmit', function(req, res) {
 // TODO do some validation with input
-    req.db.collection('records').insertOne({something: 'something'})
+    var user = req.body.username;
+
+    req.db.collection('records').insertOne({something: 'something'});
+    res.redirect('/table');
 });
 
 
