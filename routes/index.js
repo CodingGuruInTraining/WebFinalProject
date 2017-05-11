@@ -67,7 +67,7 @@ router.post('/typethisAction', function(req, res) {
 
 
 
-router.post('/somethin')
+// router.post('/somethin')
 
 
 

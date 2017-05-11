@@ -9,7 +9,7 @@ var assert = require('assert');
 var flash = require('express-flash');
 var session = require('express-session');
 var passport = require('passport');
-var MongoDBStore = require('connect-mongodb-session');
+var MongoDBStore = require('connect-mongodb-session')(session);
 
 var index = require('./routes/index');
 var users = require('./routes/users');
