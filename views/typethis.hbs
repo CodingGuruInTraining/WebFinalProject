@@ -5,12 +5,12 @@
     <p>Read the text below and type it in the text field. Click on the 'Start' button when you are ready to begin.</p>
     <br>
     <form action="/typethisAction" method="post">
-    <p id="msgToType">{{messageToType}}</p>
+    <p id="msgToType" name="msgToType">{{messageToType}}</p>
     <label for="typedMsg">Type here: </label>
-    <input type="text" id="typedMsg"/>
+    <input type="text" id="typedMsg" name="typedMsg"/>
     <br>
-    <button type="button" id="startBtn" name="btnStart">Start</button>
+    <button type="button" id="startBtn" name="startBtn">Start</button>
 
-    <button type="submit" id="doneBtn" name="btnDone">Done!</button>
+    <button type="submit" id="doneBtn" name="doneBtn">Done!</button>
     </form>
 </div>

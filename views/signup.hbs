@@ -3,12 +3,12 @@
 
 <form action="/signup" method="post">
     <label for="signUser">Username: </label>
-    <input type="text" id="signUser" required>
+    <input type="text" id="signUser" name="signUser" required>
     <br>
     <label for="signPW">Password: </label>
-    <input type="password" id="signPW" required>
+    <input type="password" id="signPW" name="signPW" required>
     <br>
-    <input type="submit" id="signupBtn" value="Sign Up!">
+    <input type="submit" id="signupBtn" name="signupBtn" value="Sign Up!">
 </form>
 
 <p>Already did this before? <a href="/login">Log in here</a>!</p>

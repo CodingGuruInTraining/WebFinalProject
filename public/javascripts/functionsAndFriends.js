@@ -19,7 +19,7 @@ function addMyListeners() {
     $('#anotherBtn').click(function () {
         console.log('another button pressed')
     });
-
+// TODO move to server if there is 'time' (pun intended!)
     $('#startBtn').click(function() {
         console.log('start button pressed');
         if (theInterval == null) {
