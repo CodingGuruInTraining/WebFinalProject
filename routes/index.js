@@ -69,6 +69,15 @@ router.post('/typethisAction', function(req, res) {
 
 // router.post('/somethin')
 
+router.get('/playAction', function(req, res) {
+    res.redirect('/typethis');
+});
+
+router.post('/typingSubmit', function(req, res) {
+// TODO do some validation with input
+    req.db.collection('records').insertOne({something: 'something'})
+});
+
 
 
 // GET typing page
