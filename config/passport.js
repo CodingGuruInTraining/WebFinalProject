@@ -35,9 +35,9 @@ module.exports = function(passport) {
                         return done(err);
                     }
                     return done(null, newUser);
-                })
-            })
-        })
+                });
+            });
+        });
     }));
 
     passport.use('local-login', new LocalStrategy({

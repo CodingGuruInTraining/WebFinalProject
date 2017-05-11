@@ -59,9 +59,15 @@ router.get('/logout', function(req, res, next) {
 
 // POST typing page's ACTION
 router.post('/typethisAction', function(req, res) {
-   // console.log(req.body);
-    // console.log(req.query);
+// TODO make typingRound object (maybe just replace with user object)
+// TODO query db for all records of user
+// TODO show results page
+
 });
+
+
+
+router.post('/somethin')
 
 
 

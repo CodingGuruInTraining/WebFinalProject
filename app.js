@@ -39,9 +39,9 @@ var session_url = 'mongodb://localhost:27017/spddata_sessions';
 
 app.use(session({
     secret:'somethin',
-    resave: true,
-    saveUninitialized: true,
-    store: new MongoDBStore({ url: session_url })
+    resave: true
+    // saveUninitialized: true,
+    // store: new MongoDBStore({ url: session_url })
 }));
 
 require('./config/passport')(passport);
