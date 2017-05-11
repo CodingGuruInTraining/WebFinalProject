@@ -9,7 +9,7 @@ var assert = require('assert');
 var flash = require('express-flash');
 var session = require('express-session');
 var passport = require('passport');
-// var MongoDBStore = require('connect-mongodb-session');
+var MongoDBStore = require('connect-mongodb-session');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -23,8 +23,8 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-var url = 'mongodb://localhost:27017/spddata';
-mongoose.connect(url);
+// var url = 'mongodb://localhost:27017/spddata';
+// mongoose.connect(url);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -32,10 +32,16 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+var url = 'mongodb://localhost:27017/spddata';
+var session_url = 'mongodb://localhost:27017/spddata_sessions';
 
 app.use(session({
     secret:'somethin',
-    resave: true
+    resave: true,
+    saveUninitialized: true,
+    store: new MongoDBStore({ url: session_url })
 }));
 
 require('./config/passport')(passport);
@@ -43,8 +49,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+mongoose.connect(url);
 
-app.use(express.static(path.join(__dirname, 'public')));
+
 // app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 // require('./public/javascripts/functionsAndFriends');
 
