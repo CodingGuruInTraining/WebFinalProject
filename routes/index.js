@@ -50,7 +50,7 @@ router.get('/results', function(req, res, next) {
 });
 
 
-// GET logout
+// GET logout action
 router.get('/logout', function(req, res, next) {
     req.logout();
     res.redirect('/');
