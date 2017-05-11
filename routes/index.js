@@ -77,12 +77,23 @@ router.post('/typethisaction', function(req, res) {
     console.log(inputText);
 // TODO may need to remove \ from strings
 
-    var perc = quote.length / (quote.length + numOfErrors);
-    if (quote === inputText) {
+
+    if (quote != inputText) {
+        if (quote.length > inputText.length) {
+            for (var i = 0; i < quote.length; i++) {
+                if (quote.charAt(i) != inputText.charAt(i)) {
+                    numOfErrors++;
+                    break;
+                }
+            }
+        }
+    }
+
+    var perc = (1 - (quote.length / numOfErrors)) * 100;
 
         res.render('results', {greet: "Nice job, pal!", errors: numOfErrors, percent: perc,
                                 timetaken: totalTime});
-    }
+
 
 
 // TODO make typingRound object (maybe just replace with user object)

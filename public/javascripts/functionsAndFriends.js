@@ -70,12 +70,14 @@ console.log($('#numErrors').value);
 
             for (var i = 0; i < typedString.length; i++) {
                 if (setString.charAt(i) != typedString.charAt(i)) {
-                    typedString = typedString.slice(0, -1);
-                    console.log('nope, new string: ' + typedString);
-                    $('#typedMsg').val(typedString);
-                    numErrors++;
-                    console.log("num is now " + numErrors);
-                    return;
+                    if (setString.charAt(i) != "." && typedString.charAt(i) != ".") {
+                        typedString = typedString.slice(0, -1);
+                        console.log('nope, new string: ' + typedString);
+                        $('#typedMsg').val(typedString);
+                        numErrors++;
+                        console.log("num is now " + numErrors);
+                        return;
+                    }
                 }
             }
         }
