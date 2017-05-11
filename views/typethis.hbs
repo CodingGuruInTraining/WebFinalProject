@@ -4,7 +4,7 @@
     <br>
     <p>Read the text below and type it in the text field. Click on the 'Start' button when you are ready to begin.</p>
     <br>
-<form action="/typethisaction" method="post">
+<form action="/results" method="post">
     <p id="msgToType" name="msgToType">{{msgToType}}</p>
     <br>
     <label for="typedMsg">Type here: </label>
@@ -13,8 +13,6 @@
     <input type="hidden" id="timeTaken" name="timeTaken" value="">
     <br>
     <button type="button" id="startBtn" name="startBtn">Start</button>
-<!--<form action="/typingSubmit" method="post">-->
     <button type="submit" id="doneBtn" name="doneBtn">Done!</button>
-<!--</form>-->
     </form>
 </div>

@@ -1,22 +1,25 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+// Gets a random quote from API.
 var quoteGrab = require('../helpers/quoteGrabber');
-// var quotes;
+// Variable to hold the random quote string.
 var quote;
+
 
 
 /* GET home page. */
 router.get('/', isLoggedIn, function(req, res, next) {
   res.redirect('/table');
-    // res.render('index', { title: 'Speed Typing Stat Tracker' });
 });
-
-
 
 router.get('/table', isLoggedIn, function(req, res, next) {
     res.render('table', {title: "Speed Typing Stat Tracker"});
 });
+
+
+
+
 
 // Should GET all database items and send them somewhere, hopefully the table.
 router.get('/fillAll', function(req, res, next) {
@@ -29,9 +32,12 @@ router.get('/fillAll', function(req, res, next) {
 });
 
 
+
+
+
 // GET login page
 router.get('/login', function(req, res, next) {
-    res.render('login', { title: 'title here' });
+    res.render('login', { title: 'Login Here' });
 });
 // POST login action
 router.post('/login', passport.authenticate('local-login', {
@@ -39,6 +45,8 @@ router.post('/login', passport.authenticate('local-login', {
     failureRedirect: '/login',
     failureFlash: true
 }));
+
+
 
 
 
@@ -54,7 +62,10 @@ router.post('/signup', passport.authenticate('local-signup', {
 }));
 
 
-// GET results page
+
+
+
+
 router.get('/results', function(req, res, next) {
     res.render('results')
 });
@@ -67,14 +78,12 @@ router.get('/logout', function(req, res, next) {
 });
 
 
-// POST typing page's ACTION
-router.post('/typethisaction', function(req, res) {
-    console.log(req.body);
-    // console.log(req.query);
+// POST results page
+router.post('/results', function(req, res) {
+    // Captures passed values into variables.
     var inputText = req.body.typedMsg;
     var numOfErrors = req.body.numErrors;
     var totalTime = req.body.timeTaken;
-    console.log(inputText);
 // TODO may need to remove \ from strings
 
 
@@ -89,22 +98,16 @@ router.post('/typethisaction', function(req, res) {
         }
     }
 
-    var perc = (1 - (quote.length / numOfErrors)) * 100;
+    var perc = (1 - (numOfErrors / quote.length)) * 100;
 
         res.render('results', {greet: "Nice job, pal!", errors: numOfErrors, percent: perc,
                                 timetaken: totalTime});
 
-
-
-// TODO make typingRound object (maybe just replace with user object)
 // TODO query db for all records of user
-// TODO show results page
-
 });
 
 
 
-// router.post('/somethin')
 
 router.get('/playAction', function(req, res) {
     res.redirect('/typethis');
@@ -120,34 +123,26 @@ router.post('/typingSubmit', function(req, res) {
 
 
 
-// GET typing page
-// TODO add isLoggedIn once authentication is working.
-router.get('/typethis', function(req, res, next) {
 
-console.log("start of route");
+
+// GET typing page
+router.get('/typethis', isLoggedIn, function(req, res, next) {
+    // Checks if quote has been set yet.
     if (!quote) {
+        // Grabs a quote collection from API.
         quoteGrab(function (data, error) {
-            console.log("inside function");
             if (error) {
                 res.render('error', { error: error.message});
             }
-            // console.log("console.logs");
-            // console.log(data[1]);
-            // console.log(data);
-            // console.log(data.count + " count");
-            console.log(Object.keys(data).length);
+            // Gets the length of the quote collection and
+            // draws a random one.
             var datacount = Object.keys(data).length;
             var randNum = Math.floor((Math.random() * (datacount-1)));
-            console.log(randNum);
             quote = data[randNum];
-            res.render('typethis', { // username: req.user.local.username,
-                msgToType: data[randNum] });
-            // res.render('typethis');
+            // Renders page.
+            res.render('typethis', { msgToType: data[randNum] });
         });
     }
-
-    console.log("didn't find anything");
-    // res.render('typethis')
 });
 
 // Makes a function to check authentication before continuing.
