@@ -2,6 +2,8 @@
 var elapsedTime = 0;
 var theInterval;
 var setString;
+var youMayStart = false;
+var numErrors = 0;
 
 function addMyListeners() {
 
@@ -35,41 +37,51 @@ function addMyListeners() {
                     seconds = "0" + seconds;
                 }
                 $('#timer').text(minutes + ":" + seconds);
-            }, 1000)
+            }, 1000);
+            youMayStart = true;
         }
     });
 
     $('#doneBtn').click(function () {
         console.log('done button pressed');
         clearInterval(theInterval);
+        youMayStart = false;
+        $('#numErrors').val(numErrors);
+        $('#timeTaken').val(elapsedTime);
+        console.log($('#numErrors').value);
     });
 
     $('#typedMsg').keyup(function () {
-
-        if (setString == null) {
-            setString = $('#msgToType').text();
-            console.log('set: ' + setString);
-        }
+console.log($('#numErrors').value);
+        if (youMayStart === true) {
+            if (setString == null) {
+                setString = $('#msgToType').text();
+                console.log('set: ' + setString);
+            }
 // for testing:
 //         setString = "this is a string!"
 
-        var typedString = $('#typedMsg').val();
-        console.log('typed: ' + typedString);
+            var typedString = $('#typedMsg').val();
+            console.log('typed: ' + typedString);
 
-        if (setString == typedString) {
-            console.log('equal strings');
-        }
+            if (setString == typedString) {
+                console.log('equal strings');
+            }
 
-        for (var i = 0; i < typedString.length; i++) {
-            if (setString.charAt(i) != typedString.charAt(i)) {
-                typedString = typedString.slice(0, -1);
-                console.log('nope, new string: ' + typedString);
-                $('#typedMsg').val(typedString);
-                return;
+            for (var i = 0; i < typedString.length; i++) {
+                if (setString.charAt(i) != typedString.charAt(i)) {
+                    typedString = typedString.slice(0, -1);
+                    console.log('nope, new string: ' + typedString);
+                    $('#typedMsg').val(typedString);
+                    numErrors++;
+                    console.log("num is now " + numErrors);
+                    return;
+                }
             }
         }
     });
 }
+
 
 /**
  *

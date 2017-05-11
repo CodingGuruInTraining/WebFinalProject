@@ -6,8 +6,11 @@
     <br>
 <form action="/typethisaction" method="post">
     <p id="msgToType" name="msgToType">{{msgToType}}</p>
+    <br>
     <label for="typedMsg">Type here: </label>
     <input type="text" id="typedMsg" name="typedMsg"/>
+    <input type="hidden" id="numErrors" name="numErrors" value="">
+    <input type="hidden" id="timeTaken" name="timeTaken" value="">
     <br>
     <button type="button" id="startBtn" name="startBtn">Start</button>
 <!--<form action="/typingSubmit" method="post">-->

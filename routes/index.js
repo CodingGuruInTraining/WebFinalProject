@@ -2,7 +2,9 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var quoteGrab = require('../helpers/quoteGrabber');
-var quotes;
+// var quotes;
+var quote;
+
 
 /* GET home page. */
 router.get('/', isLoggedIn, function(req, res, next) {
@@ -67,6 +69,22 @@ router.get('/logout', function(req, res, next) {
 
 // POST typing page's ACTION
 router.post('/typethisaction', function(req, res) {
+    console.log(req.body);
+    // console.log(req.query);
+    var inputText = req.body.typedMsg;
+    var numOfErrors = req.body.numErrors;
+    var totalTime = req.body.timeTaken;
+    console.log(inputText);
+// TODO may need to remove \ from strings
+
+    var perc = quote.length / (quote.length + numOfErrors);
+    if (quote === inputText) {
+
+        res.render('results', {greet: "Nice job, pal!", errors: numOfErrors, percent: perc,
+                                timetaken: totalTime});
+    }
+
+
 // TODO make typingRound object (maybe just replace with user object)
 // TODO query db for all records of user
 // TODO show results page
@@ -96,7 +114,7 @@ router.post('/typingSubmit', function(req, res) {
 router.get('/typethis', function(req, res, next) {
 
 console.log("start of route");
-    if (!quotes) {
+    if (!quote) {
         quoteGrab(function (data, error) {
             console.log("inside function");
             if (error) {
@@ -110,7 +128,7 @@ console.log("start of route");
             var datacount = Object.keys(data).length;
             var randNum = Math.floor((Math.random() * (datacount-1)));
             console.log(randNum);
-            console.log(data[randNum]);
+            quote = data[randNum];
             res.render('typethis', { // username: req.user.local.username,
                 msgToType: data[randNum] });
             // res.render('typethis');
