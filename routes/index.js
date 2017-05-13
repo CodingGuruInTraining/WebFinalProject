@@ -149,7 +149,9 @@ router.get('/fillAll', function(req, res, next) {
         }
         res.render('table', {users: users});
     });
+
     // console.log("all users: " + query);
+
     // req.db.collection('records').find().toArray(function(err, docs) {
     //     if (err) {
     //         return next(err)

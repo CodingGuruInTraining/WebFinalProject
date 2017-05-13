@@ -82,9 +82,9 @@ function fillTable() {
 }
 
 function addEachRow(data) {
-console.log(data);
-console.log("data length: " + data.length);
-console.log(Object.keys(data).length);
+// console.log(data);                       // data is coming as all elements on the page
+// console.log("data length: " + data.length);
+// console.log(Object.keys(data).length);
     var table = $('#dataTable');
     for (var i = 0; i < data.length; i++) {
         addRow(data[i], table);
