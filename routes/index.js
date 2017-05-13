@@ -21,20 +21,6 @@ router.get('/table', isLoggedIn, function(req, res, next) {
 
 
 
-// Should GET all database items and send them somewhere, hopefully the table.
-router.get('/fillAll', function(req, res, next) {
-    req.db.collection('records').find().toArray(function(err, docs) {
-        if (err) {
-            return next(err)
-        }
-        res.json(docs);
-    });
-});
-
-
-
-
-
 // GET login page
 router.get('/login', function(req, res, next) {
     res.render('login', { title: 'Login Here' });
@@ -50,6 +36,16 @@ router.post('/login', passport.authenticate('local-login', {
 
 
 
+// GET logout action
+router.get('/logout', function(req, res, next) {
+    req.logout();
+    res.redirect('/');
+});
+
+
+
+
+
 // GET signup page
 router.get('/signup', function(req, res, next) {
     res.render('signup')
@@ -60,66 +56,6 @@ router.post('/signup', passport.authenticate('local-signup', {
     failureRedirect: '/signup',
     failureFlash: true
 }));
-
-
-
-
-
-
-router.get('/results', function(req, res, next) {
-    res.render('results')
-});
-
-
-// GET logout action
-router.get('/logout', function(req, res, next) {
-    req.logout();
-    res.redirect('/');
-});
-
-
-// POST results page
-router.post('/results', function(req, res) {
-    // Captures passed values into variables.
-    var inputText = req.body.typedMsg;
-    var numOfErrors = req.body.numErrors;
-    var totalTime = req.body.timeTaken;
-// TODO may need to remove \ from strings
-
-
-    if (quote != inputText) {
-        if (quote.length > inputText.length) {
-            for (var i = 0; i < quote.length; i++) {
-                if (quote.charAt(i) != inputText.charAt(i)) {
-                    numOfErrors++;
-                    break;
-                }
-            }
-        }
-    }
-
-    var perc = (1 - (numOfErrors / quote.length)) * 100;
-
-        res.render('results', {greet: "Nice job, pal!", errors: numOfErrors, percent: perc,
-                                timetaken: totalTime});
-
-// TODO query db for all records of user
-});
-
-
-
-
-router.get('/playAction', function(req, res) {
-    res.redirect('/typethis');
-});
-
-router.post('/typingSubmit', function(req, res) {
-// TODO do some validation with input
-    var user = req.body.username;
-
-    req.db.collection('records').insertOne({something: 'something'});
-    res.redirect('/table');
-});
 
 
 
@@ -144,6 +80,76 @@ router.get('/typethis', isLoggedIn, function(req, res, next) {
         });
     }
 });
+
+
+
+
+
+
+// GET results page
+router.get('/results', function(req, res, next) {
+    res.render('results')
+});
+
+// POST results page
+router.post('/results', function(req, res) {
+    // Captures passed values into variables.
+    var inputText = req.body.typedMsg;
+    var numOfErrors = req.body.numErrors;
+    var totalTime = req.body.timeTaken;
+// TODO may need to remove \ from strings
+
+    if (quote != inputText) {
+        if (quote.length > inputText.length) {
+            for (var i = 0; i < quote.length; i++) {
+                if (quote.charAt(i) != inputText.charAt(i)) {
+                    numOfErrors++;
+                    break;
+                }
+            }
+        }
+    }
+
+    var perc = (1 - (numOfErrors / quote.length)) * 100;
+
+    res.render('results', {greet: "Nice job, pal!", errors: numOfErrors, percent: perc,
+        timetaken: totalTime});
+
+// TODO query db for all records of user
+});
+
+
+
+
+
+
+// Should GET all database items and send them somewhere, hopefully the table.
+router.get('/fillAll', function(req, res, next) {
+    req.db.collection('records').find().toArray(function(err, docs) {
+        if (err) {
+            return next(err)
+        }
+        res.json(docs);
+    });
+});
+
+
+
+
+
+router.post('/typingSubmit', function(req, res) {
+// TODO do some validation with input
+    var user = req.body.username;
+
+    req.db.collection('records').insertOne({something: 'something'});
+    res.redirect('/table');
+});
+
+
+
+
+
+
 
 // Makes a function to check authentication before continuing.
 function isLoggedIn(req, res, next) {
