@@ -5,6 +5,7 @@ var passport = require('passport');
 var quoteGrab = require('../helpers/quoteGrabber');
 // Variable to hold the random quote string.
 var quote;
+var allQuotes;
 
 
 
@@ -23,8 +24,9 @@ router.get('/table', isLoggedIn, function(req, res, next) {
 
 // GET login page
 router.get('/login', function(req, res, next) {
-    res.render('login', { title: 'Login Here' });
+    res.render('login');
 });
+
 // POST login action
 router.post('/login', passport.authenticate('local-login', {
     successRedirect: '/table',
@@ -63,23 +65,29 @@ router.post('/signup', passport.authenticate('local-signup', {
 
 // GET typing page
 router.get('/typethis', isLoggedIn, function(req, res, next) {
+
+
     // Checks if quote has been set yet.
-    if (!quote) {
+    if (!allQuotes) {
         // Grabs a quote collection from API.
         quoteGrab(function (data, error) {
             if (error) {
-                res.render('error', { error: error.message});
+                res.render('error', {error: error.message});
             }
+            allQuotes = data;
+        })
+    }
+
             // Gets the length of the quote collection and
             // draws a random one.
             var datacount = Object.keys(data).length;
             var randNum = Math.floor((Math.random() * (datacount-1)));
-            quote = data[randNum];
+            quote = allQuotes[randNum];
             // Renders page.
-            res.render('typethis', { msgToType: data[randNum] });
+            res.render('typethis', { msgToType: quote });
         });
-    }
-});
+    // }
+// });
 
 
 
@@ -99,14 +107,24 @@ router.post('/results', function(req, res) {
     var totalTime = req.body.timeTaken;
 // TODO may need to remove \ from strings
 
+    console.log("quote length: " + quote.length);
+    console.log("input length: " + inputText.length);
+
     if (quote != inputText) {
         if (quote.length > inputText.length) {
-            for (var i = 0; i < quote.length; i++) {
-                if (quote.charAt(i) != inputText.charAt(i)) {
-                    numOfErrors++;
-                    break;
-                }
-            }
+            // Client-side validation would have taken care of what is
+            // provided in inputText (no further validation needed);
+
+            console.log("errors before: " + numOfErrors);
+            numOfErrors += (quote.length - inputText.length);
+            console.log("errors after: " + numOfErrors);
+            //
+            // for (var i = 0; i < quote.length; i++) {
+            //     if (quote.charAt(i) != inputText.charAt(i)) {
+            //         numOfErrors++;
+            //         break;
+            //     }
+            // }
         }
     }
 

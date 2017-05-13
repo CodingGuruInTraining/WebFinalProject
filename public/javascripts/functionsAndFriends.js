@@ -40,12 +40,13 @@ function addMyListeners() {
 
 
     $('#typedMsg').keyup(function () {
-        if (youMayStart === true) {
+        // if (youMayStart === true) {
             if (setString == null) {
                 setString = $('#msgToType').text();
             }
             var typedString = $('#typedMsg').val();
-            if (setString == typedString) {
+            if (setString === typedString) {
+// TODO make box around stuff green border.
                 console.log('equal strings');
             }
             for (var i = 0; i < typedString.length; i++) {
@@ -58,7 +59,7 @@ function addMyListeners() {
                     }
                 }
             }
-        }
+        // }
     });
 }
 
@@ -81,6 +82,9 @@ function fillTable() {
 }
 
 function addEachRow(data) {
+console.log(data);
+console.log("data length: " + data.length);
+console.log(Object.keys(data).length);
     var table = $('#dataTable');
     for (var i = 0; i < data.length; i++) {
         addRow(data[i], table);
