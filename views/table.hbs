@@ -1,4 +1,5 @@
 <h1>{{title}}</h1>
+<h2>High Scores</h2>
 
 
 
@@ -6,6 +7,18 @@
 <table id="dataTable">
     <!--TODO move all table stuff into handlebars once finalized    -->
     <tr> <th>Username</th><th>Time</th><th># Err</th><th>% Acc</th><th>Best (something}</th> </tr>
+
+
+    {{#each users}}
+        <tr>
+            <td>{{users.username}}</td>
+            <td>{{users.time}}</td>
+            <td>{{users.numErrors}}</td>
+            <td>{{users.accuracy}}</td>
+            <td>{{users.local.username}} testing</td></tr>
+    {{/each}}
+
+
     {{#if data}}
         <!--TODO not sure if can pass tr with td or just td...-->
         {{data}}

@@ -41,7 +41,7 @@ app.use(session({
     secret:'somethin',
     resave: true
     // saveUninitialized: true,
-    // store: new MongoDBStore({ url: session_url })
+    // store: new MongoDBStore({ uri: session_url })
 }));
 
 require('./config/passport')(passport);
@@ -51,10 +51,6 @@ app.use(flash());
 
 
 mongoose.connect(url);
-
-
-// app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
-// require('./public/javascripts/functionsAndFriends');
 
 app.use('/', index);
 app.use('/users', users);

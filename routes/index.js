@@ -6,7 +6,7 @@ var quoteGrab = require('../helpers/quoteGrabber');
 // Variable to hold the random quote string.
 var quote;
 var allQuotes;
-
+var User = require('../models/user');
 
 
 /* GET home page. */
@@ -143,12 +143,19 @@ router.post('/results', function(req, res) {
 
 // Should GET all database items and send them somewhere, hopefully the table.
 router.get('/fillAll', function(req, res, next) {
-    req.db.collection('records').find().toArray(function(err, docs) {
+    User.find(function(err, users) {
         if (err) {
-            return next(err)
+            return next(err);
         }
-        res.json(docs);
+        res.render('table', {users: users});
     });
+    // console.log("all users: " + query);
+    // req.db.collection('records').find().toArray(function(err, docs) {
+    //     if (err) {
+    //         return next(err)
+    //     }
+    //     res.json(docs);
+    // });
 });
 
 
