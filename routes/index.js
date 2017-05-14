@@ -68,39 +68,39 @@ router.get('/typethis', isLoggedIn, function(req, res, next) {
 
 
     // Checks if quote has been set yet.
-    if (!allQuotes) {
+    if (!quote) {
         // Grabs a quote collection from API.
         quoteGrab(function (data, error) {
             if (error) {
                 res.render('error', {error: error.message});
             }
             // console.log(data);
-            // allQuotes = data;
-            for (var i = 0; i < Object.keys(data).length; i++) {
-                allQuotes.add(data[i]);
-            }
+            allQuotes = data;
+            // for (var i = 0; i < Object.keys(data).length; i++) {
+            //     allQuotes.add(data[i]);
+            // }
             console.log(allQuotes);
-        })
-    }
+        // })
+    // }
 // console.log(allQuotes);
-            // Gets the length of the quote collection and
+//             Gets the length of the quote collection and
             // draws a random one.
-            // var datacount = Object.keys(allQuotes).length;
-            // var randNum = Math.floor((Math.random() * (datacount-1)));
-            // quote = allQuotes[randNum];
+            var datacount = Object.keys(allQuotes).length;
+            var randNum = Math.floor((Math.random() * (datacount-1)));
+            quote = allQuotes[randNum];
 
-    getQuote(data);
+    // getQuote(data);
             // Renders page.
             res.render('typethis', { msgToType: quote });
         });
-    // }
-// });
+    }
+});
 
-function getQuote(data) {
-    var datacount = Object.keys(data).length;
-    var randNum = Math.floor((Math.random() * (datacount-1)));
-    quote = data[randNum];
-}
+// function getQuote(data) {
+//     var datacount = Object.keys(data).length;
+//     var randNum = Math.floor((Math.random() * (datacount-1)));
+//     quote = data[randNum];
+// }
 
 
 
@@ -126,8 +126,11 @@ router.post('/results', function(req, res) {
             // Client-side validation would have taken care of what is
             // provided in inputText (no further validation needed);
 
+            var diff = quote.length - inputText.length;
+
+
             console.log("errors before: " + numOfErrors);
-            numOfErrors += (quote.length - inputText.length);
+            numOfErrors += diff; // (quote.length - inputText.length);
             console.log("errors after: " + numOfErrors);
             //
             // for (var i = 0; i < quote.length; i++) {
