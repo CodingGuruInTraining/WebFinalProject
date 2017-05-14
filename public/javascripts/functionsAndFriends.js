@@ -107,7 +107,7 @@ console.log('addRow about to crash');
 /*****************/
 
 addMyListeners();
-fillTable();
+// fillTable();
 
 // helpers:
 // http://stackoverflow.com/questions/109086/stop-setinterval-call-in-javascript

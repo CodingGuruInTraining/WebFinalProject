@@ -74,22 +74,33 @@ router.get('/typethis', isLoggedIn, function(req, res, next) {
             if (error) {
                 res.render('error', {error: error.message});
             }
-            allQuotes = data;
+            // console.log(data);
+            // allQuotes = data;
+            for (var i = 0; i < Object.keys(data).length; i++) {
+                allQuotes.add(data[i]);
+            }
+            console.log(allQuotes);
         })
     }
-
+// console.log(allQuotes);
             // Gets the length of the quote collection and
             // draws a random one.
-            var datacount = Object.keys(data).length;
-            var randNum = Math.floor((Math.random() * (datacount-1)));
-            quote = allQuotes[randNum];
+            // var datacount = Object.keys(allQuotes).length;
+            // var randNum = Math.floor((Math.random() * (datacount-1)));
+            // quote = allQuotes[randNum];
+
+    getQuote(data);
             // Renders page.
             res.render('typethis', { msgToType: quote });
         });
     // }
 // });
 
-
+function getQuote(data) {
+    var datacount = Object.keys(data).length;
+    var randNum = Math.floor((Math.random() * (datacount-1)));
+    quote = data[randNum];
+}
 
 
 
@@ -167,8 +178,8 @@ router.get('/fillAll', function(req, res, next) {
 router.post('/typingSubmit', function(req, res) {
 // TODO do some validation with input
     var user = req.body.username;
-
-    req.db.collection('records').insertOne({something: 'something'});
+console.log(req.body);
+    // req.db.collection('records').insertOne({something: 'something'});
     res.redirect('/table');
 });
 
