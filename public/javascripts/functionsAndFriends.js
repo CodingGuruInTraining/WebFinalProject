@@ -3,6 +3,7 @@ var theInterval;
 var setString;
 var youMayStart = false;
 var numErrors = 0;
+var setStringArray;
 
 function addMyListeners() {
 // TODO move to server if there is 'time' (pun intended!)
@@ -39,46 +40,79 @@ function addMyListeners() {
 
 
 
-    $('#typedMsg').keyup(function () {
-        // if (youMayStart === true) {
+    $('#typedMsg').keydown(function (e) {
+        if (youMayStart === false) {
+            return false;
+        }
+
+        console.log("keyCode is: " + e.keyCode + " which is: " + String.fromCharCode(e.keyCode));
+        console.log("e is: " + e);
+
+        if (e.ctrlKey && e.keyCode == 86) {
+            return false;
+        }
+
             if (setString == null) {
                 setString = $('#msgToType').text();
+                for (var i = 0; i < setString.length; i++) {
+                    setStringArray[i] = setString.charCodeAt(i);
+                }
             }
             var typedString = $('#typedMsg').val();
             if (setString === typedString) {
 // TODO make box around stuff green border.
                 console.log('equal strings');
             }
-            for (var i = 0; i < typedString.length; i++) {
-                // Compares each character.
-                if (setString.charAt(i) != typedString.charAt(i)) {
-                    // Checks for periods, which don't seem to work in above check.
-                    if (setString.charAt(i) != "." && typedString.charAt(i) != ".") {
-                        typedString = typedString.slice(0, -1);
-                        $('#typedMsg').val(typedString);
-                        numErrors++;
-                        return;
-                    }
-                }
+
+            if (e.keyCode == 13) {
+                enterKeyHit(typedString);
             }
+
+            var nextIndex = typedString.length;
+// TODO test what happens if typing after completed string.
+        if (nextIndex > setStringArray) {
+            return false;
+        }
+
+        if (e.keyCode == setStringArray[nextIndex]) {
+            typedString += String.fromCharCode(e.keyCode);
+            $('#typedMsg').val(typedString);
+        }
+        else {
+            console.log("wrong key");
+            numErrors++;
+        }
+
+            // for (var i = 0; i < typedString.length; i++) {
+            //     // Compares each character.
+            //     if (setString.charAt(i) != typedString.charAt(i)) {
+            //         // Checks for periods, which don't seem to work in above check.
+            //         if (setString.charAt(i) != "." && typedString.charAt(i) != ".") {
+            //             typedString = typedString.slice(0, -1);
+            //             $('#typedMsg').val(typedString);
+            //             numErrors++;
+            //             return;
+            //         }
+            //     }
+            // }
         // }
     });
 
 
 
 
-    $(document).on('keydown', function(e) {
-        if ((e.metaKey || e.ctrlKey) && ((String.fromCharCode(e.which).toLowerCase() === 'c'))) {
-
-            console.log('uh uh uh!');
-            $('#typedMsg').val("");
-            // $('#typedMsg').text("");
-        }
-        else if ((e.metaKey || e.ctrlKey) && (String.fromCharCode(e.which).toLowerCase() === 'v')) {
-            console.log('cant do that');
-            $('#typedMsg').val("");
-        }
-    })
+    // $(document).on('keydown', function(e) {
+    //     if ((e.metaKey || e.ctrlKey) && ((String.fromCharCode(e.which).toLowerCase() === 'c'))) {
+    //
+    //         console.log('uh uh uh!');
+    //         $('#typedMsg').val("");
+    //         // $('#typedMsg').text("");
+    //     }
+    //     else if ((e.metaKey || e.ctrlKey) && (String.fromCharCode(e.which).toLowerCase() === 'v')) {
+    //         console.log('cant do that');
+    //         $('#typedMsg').val("");
+    //     }
+    // })
 }
 
 
@@ -129,3 +163,7 @@ addMyListeners();
 
 // helpers:
 // http://stackoverflow.com/questions/109086/stop-setinterval-call-in-javascript
+// http://stackoverflow.com/questions/4604057/jquery-keypress-ctrlc-or-some-combo-like-that
+// http://stackoverflow.com/questions/1772179/get-character-value-from-keycode-in-javascript-then-trim
+// http://stackoverflow.com/questions/3977792/how-to-convert-keycode-to-character-using-javascript
+// http://stackoverflow.com/questions/25872902/how-can-i-detect-ctrl-v-in-javascript-for-ie-and-firefox
