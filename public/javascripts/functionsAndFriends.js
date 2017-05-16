@@ -50,7 +50,9 @@ function addMyListeners() {
                 console.log('equal strings');
             }
             for (var i = 0; i < typedString.length; i++) {
+                // Compares each character.
                 if (setString.charAt(i) != typedString.charAt(i)) {
+                    // Checks for periods, which don't seem to work in above check.
                     if (setString.charAt(i) != "." && typedString.charAt(i) != ".") {
                         typedString = typedString.slice(0, -1);
                         $('#typedMsg').val(typedString);
@@ -61,6 +63,22 @@ function addMyListeners() {
             }
         // }
     });
+
+
+
+
+    $(document).on('keydown', function(e) {
+        if ((e.metaKey || e.ctrlKey) && ((String.fromCharCode(e.which).toLowerCase() === 'c'))) {
+
+            console.log('uh uh uh!');
+            $('#typedMsg').val("");
+            // $('#typedMsg').text("");
+        }
+        else if ((e.metaKey || e.ctrlKey) && (String.fromCharCode(e.which).toLowerCase() === 'v')) {
+            console.log('cant do that');
+            $('#typedMsg').val("");
+        }
+    })
 }
 
 
