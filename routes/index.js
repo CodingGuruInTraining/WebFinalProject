@@ -68,7 +68,7 @@ router.get('/typethis', isLoggedIn, function(req, res, next) {
 
 
     // Checks if quote has been set yet.
-    if (!quote) {
+    if (!allQuotes) {
         // Grabs a quote collection from API.
         quoteGrab(function (data, error) {
             if (error) {
@@ -142,7 +142,7 @@ router.post('/results', function(req, res) {
         }
     }
 
-    var perc = (1 - (numOfErrors / quote.length)) * 100;
+    var perc = Math.floor((1 - (numOfErrors / quote.length)) * 100);
 
     res.render('results', {greet: "Nice job, pal!", errors: numOfErrors, percent: perc,
         timetaken: totalTime});
@@ -188,6 +188,11 @@ console.log(req.body);
 
 
 
+
+
+router.get('/anotherGo', function(req, res) {
+    res.redirect('/typethis');
+});
 
 
 
