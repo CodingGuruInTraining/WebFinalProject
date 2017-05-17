@@ -4,6 +4,7 @@ var setString;
 var youMayStart = false;
 var numErrors = 0;
 var setStringArray = [];
+var errorFlag = false;
 
 function addMyListeners() {
 // TODO move to server if there is 'time' (pun intended!)
@@ -72,17 +73,18 @@ console.log('checkpoint2');
 
             var nextIndex = typedString.length;
 // TODO test what happens if typing after completed string.
-        if (nextIndex > setStringArray) {
+        if (nextIndex >= setStringArray) {
             return false;
         }
-
-        if (e.keyCode == setStringArray[nextIndex]) {
+console.log("keyCode: " + e.charCode + "   vs    set: " + setStringArray[nextIndex]);
+        if (e.charCode == setStringArray[nextIndex]) {
+        //String.fromCharCode(e.keyCode) == String.fromCharCode(setStringArray[nextIndex])) { //setStringArray[nextIndex]) {
             typedString += String.fromCharCode(e.keyCode);
             // $('#typedMsg').val(typedString);
         }
         else {
             console.log("wrong key");
-            numErrors++;
+            // numErrors++;
             return false;
         }
 
@@ -100,6 +102,16 @@ console.log('checkpoint2');
             // }
         // }
     });
+
+
+
+
+    $('#typedMsg').keyup(function() {
+        if (errorFlag) {
+            numErrors++;
+            errorFlag = false;
+        }
+    })
 
 
 
