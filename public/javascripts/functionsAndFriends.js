@@ -3,7 +3,7 @@ var theInterval;
 var setString;
 var youMayStart = false;
 var numErrors = 0;
-var setStringArray;
+var setStringArray = [];
 
 function addMyListeners() {
 // TODO move to server if there is 'time' (pun intended!)
@@ -51,9 +51,10 @@ function addMyListeners() {
         if (e.ctrlKey && e.keyCode == 86) {
             return false;
         }
-
+console.log('checkpoint');
             if (setString == null) {
                 setString = $('#msgToType').text();
+console.log('checkpoint2');
                 for (var i = 0; i < setString.length; i++) {
                     setStringArray[i] = setString.charCodeAt(i);
                 }
@@ -76,7 +77,7 @@ function addMyListeners() {
 
         if (e.keyCode == setStringArray[nextIndex]) {
             typedString += String.fromCharCode(e.keyCode);
-            $('#typedMsg').val(typedString);
+            // $('#typedMsg').val(typedString);
         }
         else {
             console.log("wrong key");
