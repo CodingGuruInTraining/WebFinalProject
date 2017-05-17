@@ -64,9 +64,10 @@ console.log('checkpoint2');
 // TODO make box around stuff green border.
                 console.log('equal strings');
             }
-
+// Surprisingly, this is the only part that works:
             if (e.keyCode == 13) {
                 enterKeyHit(typedString);
+                return;
             }
 
             var nextIndex = typedString.length;
@@ -82,6 +83,7 @@ console.log('checkpoint2');
         else {
             console.log("wrong key");
             numErrors++;
+            return false;
         }
 
             // for (var i = 0; i < typedString.length; i++) {
@@ -158,6 +160,25 @@ console.log('addRow about to crash');
     table.append(row);
 }
 /*****************/
+
+
+
+
+
+function enterKeyHit(input) {
+    $.ajax({
+        method: "POST",
+        url: "results",
+        data: { typedMsg: input, numErrors: numErrors, timeTaken: elapsedTime }
+    }).done(function() {
+        console.log("Enter key function passed!");
+    }).fail(function() {
+        console.log("Enter key function failed");
+    })
+}
+
+
+
 
 addMyListeners();
 // fillTable();
