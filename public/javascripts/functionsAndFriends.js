@@ -201,3 +201,4 @@ addMyListeners();
 // http://stackoverflow.com/questions/1772179/get-character-value-from-keycode-in-javascript-then-trim
 // http://stackoverflow.com/questions/3977792/how-to-convert-keycode-to-character-using-javascript
 // http://stackoverflow.com/questions/25872902/how-can-i-detect-ctrl-v-in-javascript-for-ie-and-firefox
+// https://forums.asp.net/t/1662177.aspx?Capture+a+Client+Side+KeyPress+with+Javascript+and+Run+a+Server+Side+Event+with+ASP+NET+VB+NET

@@ -17,6 +17,8 @@ var users = require('./routes/users');
 var quoteGrab = require('./helpers/quoteGrabber');
 var serverCode = require('./helpers/serverScript');
 
+var Round = require('./models/typingRound');
+
 var app = express();
 
 // view engine setup
@@ -55,6 +57,8 @@ mongoose.connect(url);
 app.use('/', index);
 app.use('/users', users);
 app.use('./helpers/quoteGrabber', quoteGrab);
+
+app.use('./models/typingRound', Round);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

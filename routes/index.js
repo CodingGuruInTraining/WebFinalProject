@@ -8,6 +8,7 @@ var quote;
 var allQuotes;
 var User = require('../models/user');
 var currentUser;
+// var Round = require('../models/typingRound');
 
 /* GET home page. */
 router.get('/', isLoggedIn, function(req, res, next) {
@@ -152,16 +153,19 @@ router.post('/results', function(req, res) {
 
     var newEntry = {user: currentUser.username,
                     time: totalTime,
-                    errors: numOfErrors,
+                    numErrors: numOfErrors,
                     accuracy: perc,
                     userid: currentUser._id};
-    req.db.collection('records').insertOne(newEntry, function(err) {
-        if (err) {
-            return next(err);
-        }
+
+    var newRound = new Round(newEntry);
+    currentUser.rounds.push(newRound._id);
+    // req.db.collection('records').insertOne(newEntry, function(err) {
+    //     if (err) {
+    //         return next(err);
+    //     }
         res.render('results', {greet: "Nice job, pal!", errors: numOfErrors, percent: perc,
             timetaken: totalTime});
-    });
+    // });
 });
 
 
