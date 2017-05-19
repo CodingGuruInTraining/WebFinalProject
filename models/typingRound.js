@@ -7,8 +7,8 @@ var typeSchema = new mongoose.Schema({
     time: Number,
     errors: Number,
     dateTyped: { type: Date, default: Date.now },
-    accuracy: Number
-    // userid:
+    accuracy: Number,
+    userid: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 });
 
 var Round = mongoose.model('Round', typeSchema);

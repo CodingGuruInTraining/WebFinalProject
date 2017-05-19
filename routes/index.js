@@ -7,7 +7,7 @@ var quoteGrab = require('../helpers/quoteGrabber');
 var quote;
 var allQuotes;
 var User = require('../models/user');
-
+var currentUser;
 
 /* GET home page. */
 router.get('/', isLoggedIn, function(req, res, next) {
@@ -15,7 +15,13 @@ router.get('/', isLoggedIn, function(req, res, next) {
 });
 
 router.get('/table', isLoggedIn, function(req, res, next) {
-    res.render('table', {title: "Speed Typing Stat Tracker"});
+    req.db.collection('records').find().toArray(function(err, docs) {
+        if (err) {
+            return next(err);
+        }
+// TODO refactor name later
+        return res.render('table', {title: "Speed Typing Stat Tracker", users: docs});
+    });
 });
 
 
@@ -144,10 +150,18 @@ router.post('/results', function(req, res) {
 
     var perc = Math.floor((1 - (numOfErrors / quote.length)) * 100);
 
-    res.render('results', {greet: "Nice job, pal!", errors: numOfErrors, percent: perc,
-        timetaken: totalTime});
-
-// TODO query db for all records of user
+    var newEntry = {user: currentUser.username,
+                    time: totalTime,
+                    errors: numOfErrors,
+                    accuracy: perc,
+                    userid: currentUser._id};
+    req.db.collection('records').insertOne(newEntry, function(err) {
+        if (err) {
+            return next(err);
+        }
+        res.render('results', {greet: "Nice job, pal!", errors: numOfErrors, percent: perc,
+            timetaken: totalTime});
+    });
 });
 
 
@@ -200,6 +214,9 @@ router.get('/anotherGo', function(req, res) {
 // Makes a function to check authentication before continuing.
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
+        currentUser = req.user;
+        console.log(currentUser);
+        console.log(currentUser.username);
         return next();
     }
     res.redirect('/login');
