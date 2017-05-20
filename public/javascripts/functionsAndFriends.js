@@ -39,6 +39,9 @@ function addMyListeners() {
 
 
 
+    $('#typedMsg').bind('paste', function() {
+        console.log("trying to paste is wrong!")
+    });
 
 
     $('#typedMsg').keydown(function (e) {

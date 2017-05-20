@@ -8,7 +8,7 @@ var quote;
 var allQuotes;
 var User = require('../models/user');
 var currentUser;
-// var Round = require('../models/typingRound');
+var Round = require('../models/typingRound');
 
 /* GET home page. */
 router.get('/', isLoggedIn, function(req, res, next) {
@@ -158,6 +158,7 @@ router.post('/results', function(req, res) {
                     userid: currentUser._id};
 
     var newRound = new Round(newEntry);
+    console.log('newRound is: ' + newRound);
     currentUser.rounds.push(newRound._id);
     // req.db.collection('records').insertOne(newEntry, function(err) {
     //     if (err) {
