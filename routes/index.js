@@ -118,7 +118,7 @@ router.get('/results', function(req, res, next) {
 });
 
 // POST results page
-router.post('/results', function(req, res) {
+router.post('/results', function(req, res, next) {
     // Captures passed values into variables.
     var inputText = req.body.typedMsg;
     var numOfErrors = req.body.numErrors;
@@ -160,6 +160,13 @@ router.post('/results', function(req, res) {
     var newRound = new Round(newEntry);
     console.log('newRound is: ' + newRound);
     currentUser.rounds.push(newRound._id);
+
+    newRound.save(function(err) {
+        if(err) {
+            return next(err);
+        }
+    });
+
     // req.db.collection('records').insertOne(newEntry, function(err) {
     //     if (err) {
     //         return next(err);
