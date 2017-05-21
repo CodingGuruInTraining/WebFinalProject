@@ -50,9 +50,9 @@ function addMyListeners() {
         }
 
         console.log("keyCode is: " + e.keyCode + " which is: " + String.fromCharCode(e.keyCode));
-        console.log("e is: " + e);
 
         if (e.ctrlKey && e.keyCode == 86) {
+console.log("paste attempt");
             return false;
         }
 console.log('checkpoint');

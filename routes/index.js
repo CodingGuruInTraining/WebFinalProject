@@ -16,8 +16,11 @@ router.get('/', isLoggedIn, function(req, res, next) {
 });
 
 router.get('/table', isLoggedIn, function(req, res, next) {
+console.log("table checkpoint");
     req.db.collection('records').find().toArray(function(err, docs) {
+console.log("table checkpoint 2");
         if (err) {
+console.log("table error: " + err);
             return next(err);
         }
 // TODO refactor name later
@@ -228,7 +231,7 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         currentUser = req.user;
         console.log(currentUser);
-        console.log(currentUser.username);
+        // console.log(currentUser.local.username);
         return next();
     }
     res.redirect('/login');
