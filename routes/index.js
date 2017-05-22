@@ -17,7 +17,8 @@ router.get('/', isLoggedIn, function(req, res, next) {
 
 router.get('/table', isLoggedIn, function(req, res, next) {
 console.log("table checkpoint");
-    req.db.collection('records').find().toArray(function(err, docs) {
+    req.db.collection('records').distinct('userId', function(err, docs) { //})
+    // req.db.collection('records').find().toArray(function(err, docs) {
 console.log("table checkpoint 2");
         if (err) {
 console.log("table error: " + err);
@@ -116,9 +117,9 @@ router.get('/typethis', isLoggedIn, function(req, res, next) {
 
 
 // GET results page
-router.get('/results', function(req, res, next) {
-    res.render('results')
-});
+// router.get('/results', function(req, res, next) {
+//     res.render('results')
+// });
 
 // POST results page
 router.post('/results', function(req, res, next) {
@@ -162,7 +163,7 @@ router.post('/results', function(req, res, next) {
 
     var newRound = new Round(newEntry);
     console.log('newRound is: ' + newRound);
-    currentUser.rounds.push(newRound._id);
+    // currentUser.rounds.push(newRound._id);
 
     newRound.save(function(err) {
         if(err) {
@@ -170,13 +171,14 @@ router.post('/results', function(req, res, next) {
         }
     });
 
-    // req.db.collection('records').insertOne(newEntry, function(err) {
-    //     if (err) {
-    //         return next(err);
-    //     }
-        res.render('results', {greet: "Nice job, pal!", errors: numOfErrors, percent: perc,
+    req.db.collection('records').insertOne(newEntry, function(err) {
+        if (err) {
+            return next(err);
+        }
+console.log("end of results");
+        res.render('results', {greet: "Nice job, pal!", allerrors: numOfErrors, percent: perc,
             timetaken: totalTime});
-    // });
+    });
 });
 
 
