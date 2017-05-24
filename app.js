@@ -10,6 +10,7 @@ var flash = require('express-flash');
 var session = require('express-session');
 var passport = require('passport');
 var MongoDBStore = require('connect-mongodb-session')(session);
+var hbs = require('express-handlebars');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -23,6 +24,7 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+app.engine('.hbs', hbs({extname: '.hbs', defaultLayout: 'layout'}));
 app.set('view engine', 'hbs');
 
 // var url = 'mongodb://localhost:27017/spddata';
