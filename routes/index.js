@@ -17,8 +17,8 @@ router.get('/', isLoggedIn, function(req, res, next) {
 
 router.get('/table', isLoggedIn, function(req, res, next) {
 console.log("table checkpoint");
-    req.db.collection('records').distinct('userId', function(err, docs) { //})
-    // req.db.collection('records').find().toArray(function(err, docs) {
+    // req.db.collection('records').distinct('userid', function(err, docs) { //})
+    req.db.collection('records').find().toArray(function(err, docs) {
 console.log("table checkpoint 2");
         if (err) {
 console.log("table error: " + err);
@@ -165,19 +165,19 @@ router.post('/results', function(req, res, next) {
     console.log('newRound is: ' + newRound);
     // currentUser.rounds.push(newRound._id);
 
-    newRound.save(function(err) {
-        if(err) {
-            return next(err);
-        }
-    });
+    // newRound.save(function(err) {
+    //     if(err) {
+    //         return next(err);
+    //     }
+    // });
 
     req.db.collection('records').insertOne(newEntry, function(err) {
         if (err) {
             return next(err);
         }
 console.log("end of results");
-        res.render('results', {greet: "Nice job, pal!", allerrors: numOfErrors, percent: perc,
-            timetaken: totalTime});
+        // res.render('results', {greet: "Nice job, pal!", allerrors: numOfErrors, percent: perc,
+        //     timetaken: totalTime});
     });
 });
 
