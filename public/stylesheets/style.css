@@ -24,3 +24,68 @@ th {
     font-weight: bold;
     font: 24px Rockwell;
 }
+
+
+
+/******
+LOGIN PAGE CSS
+******/
+
+#loginDiv {
+    max-width: 450px;
+}
+
+#loginDiv label {
+    display: block;
+    float: left;
+    width: 100px;
+    color: #05973e;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #fff;
+}
+
+#loginDiv input {
+    border-radius: 3px;
+    border: 1px solid #1c3439;
+    outline: none;
+    padding: 5px 8px 5px 8px;
+    box-shadow: inset 1px 1px 4px #0b1216;
+    background: #d5e6ff;
+    width: 50%;
+    margin: 2px;
+}
+
+#loginBtn {
+    background: #4aeb4d;
+    border: 1px solid #1c3439;
+    padding: 5px 15px 5px 15px;
+    box-shadow: inset -1px -1px 3px #3768ff;
+    border-radius: 3px;
+    font: 18px Rockwell;
+    font-weight: bold;
+    /*text-align: right;*/
+}
+
+#loginDiv fieldset {
+    border-radius: 10px;
+    margin: 0px 0px 10px 0px;
+    border: 1px solid #1c3439;
+    padding: 18px;
+    background: #c2d5ff;
+    box-shadow: inset 0px 0px 15px #1c3439;
+}
+
+#loginDiv fieldset legend {
+    color: #057e3d;
+    border-top: 1px solid #1c3439;
+    border-left: 1px solid #1c3439;
+    border-right: 1px solid #1c3439;
+    border-radius: 5px 5px 0px 0px;
+    background: #c2d5ff;
+    padding: 0px 8px 3px 8px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+/*format helpers:*/
+/*https://www.sanwebe.com/2014/08/css-html-forms-designs*/
