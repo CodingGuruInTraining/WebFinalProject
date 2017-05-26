@@ -39,13 +39,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 var url = process.env.MDB; // 'mongodb://localhost:27017/spddata';
-var session_url = 'mongodb://localhost:27017/spddata_sessions';
+// var session_url = 'mongodb://localhost:27017/spddata_sessions';
 
 app.use(session({
     secret:'somethin',
-    resave: true
-    // saveUninitialized: true,
-    // store: new MongoDBStore({ uri: session_url })
+    resave: true,
+    saveUninitialized: true,
+    store: new MongoDBStore({ uri: url })
 }));
 
 require('./config/passport')(passport);
