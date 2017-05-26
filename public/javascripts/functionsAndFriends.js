@@ -40,7 +40,8 @@ function addMyListeners() {
 
 
     $('#typedMsg').bind('paste', function() {
-        console.log("trying to paste is wrong!")
+        console.log("trying to paste is wrong!");
+        return false;
     });
 
 
@@ -48,17 +49,17 @@ function addMyListeners() {
         if (youMayStart === false) {
             return false;
         }
-
-        console.log("keyCode is: " + e.keyCode + " which is: " + String.fromCharCode(e.keyCode));
-
-        if (e.ctrlKey && e.keyCode == 86) {
-console.log("paste attempt");
-            return false;
-        }
-console.log('checkpoint');
+//
+//         console.log("keyCode is: " + e.keyCode + " which is: " + String.fromCharCode(e.keyCode));
+//
+//         if (e.ctrlKey && e.keyCode == 86) {
+// console.log("paste attempt");
+//             return false;
+//         }
+// console.log('checkpoint');
             if (setString == null) {
                 setString = $('#msgToType').text();
-console.log('checkpoint2');
+// console.log('checkpoint2');
                 for (var i = 0; i < setString.length; i++) {
                     setStringArray[i] = setString.charCodeAt(i);
                 }
@@ -68,42 +69,42 @@ console.log('checkpoint2');
 // TODO make box around stuff green border.
                 console.log('equal strings');
             }
-// Surprisingly, this is the only part that works:
-            if (e.keyCode == 13) {
-                enterKeyHit(typedString);
-                return;
-            }
 
-            var nextIndex = typedString.length;
+//             if (e.keyCode == 13) {
+//                 enterKeyHit(typedString);
+//                 return;
+//             }
+//
+//             var nextIndex = typedString.length;
 // TODO test what happens if typing after completed string.
-        if (nextIndex >= setStringArray) {
-            return false;
-        }
-console.log("keyCode: " + e.charCode + "   vs    set: " + setStringArray[nextIndex]);
-        if (e.charCode == setStringArray[nextIndex]) {
-        //String.fromCharCode(e.keyCode) == String.fromCharCode(setStringArray[nextIndex])) { //setStringArray[nextIndex]) {
-            typedString += String.fromCharCode(e.keyCode);
-            // $('#typedMsg').val(typedString);
-        }
-        else {
-            console.log("wrong key");
-            // numErrors++;
-            return false;
-        }
+//         if (nextIndex >= setStringArray) {
+//             return false;
+//         }
+// console.log("keyCode: " + e.charCode + "   vs    set: " + setStringArray[nextIndex]);
+//         if (e.charCode == setStringArray[nextIndex]) {
+//         //String.fromCharCode(e.keyCode) == String.fromCharCode(setStringArray[nextIndex])) { //setStringArray[nextIndex]) {
+//             typedString += String.fromCharCode(e.keyCode);
+//             // $('#typedMsg').val(typedString);
+//         }
+//         else {
+//             console.log("wrong key");
+//             // numErrors++;
+//             return false;
+//         }
+//
+            for (i = 0; i < typedString.length; i++) {
+                // Compares each character.
+                if (setString.charAt(i) != typedString.charAt(i)) {
+                    // Checks for periods, which don't seem to work in above check.
+                    if (setString.charAt(i) != "." && typedString.charAt(i) != ".") {
+                        typedString = typedString.slice(0, -1);
+                        $('#typedMsg').val(typedString);
 
-            // for (var i = 0; i < typedString.length; i++) {
-            //     // Compares each character.
-            //     if (setString.charAt(i) != typedString.charAt(i)) {
-            //         // Checks for periods, which don't seem to work in above check.
-            //         if (setString.charAt(i) != "." && typedString.charAt(i) != ".") {
-            //             typedString = typedString.slice(0, -1);
-            //             $('#typedMsg').val(typedString);
-            //             numErrors++;
-            //             return;
-            //         }
-            //     }
-            // }
-        // }
+                        return;
+                    }
+                }
+            }
+//         // }
     });
 
 
