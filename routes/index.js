@@ -18,15 +18,24 @@ router.get('/', isLoggedIn, function(req, res, next) {
 router.get('/table', isLoggedIn, function(req, res, next) {
 console.log("table checkpoint");
     // req.db.collection('records').distinct('userid', function(err, docs) { //})
-    req.db.collection('records').find().toArray(function(err, docs) {
-console.log("table checkpoint 2");
-        if (err) {
-console.log("table error: " + err);
+    // req.db.collection('records').find().toArray(function(err, docs) {
+
+    Round.find({}, function(err, docs) {
+        if(err) {
             return next(err);
         }
-// TODO refactor name later
-        return res.render('table', {title: "Speed Typing Stat Tracker", users: docs});
+        res.render('table', {title: "Speed Typing Stat Tracker", users: docs});
+        // res.json(docs);
     });
+
+console.log("table checkpoint 2");
+//         if (err) {
+// console.log("table error: " + err);
+//             return next(err);
+//         }
+// // TODO refactor name later
+//         return res.render('table', {title: "Speed Typing Stat Tracker", users: docs});
+//     });
 });
 
 
@@ -155,7 +164,9 @@ router.post('/results', function(req, res, next) {
 
     var perc = Math.floor((1 - (numOfErrors / quote.length)) * 100);
 
-    var newEntry = {user: currentUser.username,
+    console.log("cur user is: " + currentUser.local.username);
+
+    var newEntry = {user: currentUser.local.username,
                     time: totalTime,
                     numErrors: numOfErrors,
                     accuracy: perc,
@@ -165,20 +176,21 @@ router.post('/results', function(req, res, next) {
     console.log('newRound is: ' + newRound);
     // currentUser.rounds.push(newRound._id);
 
-    // newRound.save(function(err) {
-    //     if(err) {
-    //         return next(err);
-    //     }
-    // });
-
-    req.db.collection('records').insertOne(newEntry, function(err) {
-        if (err) {
+    newRound.save(function(err) {
+        if(err) {
             return next(err);
         }
-console.log("end of results");
-        // res.render('results', {greet: "Nice job, pal!", allerrors: numOfErrors, percent: perc,
-        //     timetaken: totalTime});
+        console.log("end of results");
+        res.render('results', {greet: "Nice job, pal!", allerrors: numOfErrors, percent: perc,
+            timetaken: totalTime});
     });
+
+    // req.db.collection('records').insertOne(newEntry, function(err) {
+    //     if (err) {
+    //         return next(err);
+    //     }
+
+    // });
 });
 
 
