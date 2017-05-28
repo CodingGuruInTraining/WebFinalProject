@@ -31,10 +31,15 @@ function addMyListeners() {
 
 
     $('#doneBtn').click(function () {
-        clearInterval(theInterval);
-        youMayStart = false;
-        $('#numErrors').val(numErrors);
-        $('#timeTaken').val(elapsedTime);
+        if (youMayStart) {
+            clearInterval(theInterval);
+            youMayStart = false;
+            $('#numErrors').val(numErrors);
+            $('#timeTaken').val(elapsedTime);
+        }
+        else {
+            console.log("uh uh uhh; gotta try first!");
+        }
     });
 
 
@@ -116,88 +121,11 @@ function addMyListeners() {
             errorFlag = false;
         }
     })
-
-
-
-
-    // $(document).on('keydown', function(e) {
-    //     if ((e.metaKey || e.ctrlKey) && ((String.fromCharCode(e.which).toLowerCase() === 'c'))) {
-    //
-    //         console.log('uh uh uh!');
-    //         $('#typedMsg').val("");
-    //         // $('#typedMsg').text("");
-    //     }
-    //     else if ((e.metaKey || e.ctrlKey) && (String.fromCharCode(e.which).toLowerCase() === 'v')) {
-    //         console.log('cant do that');
-    //         $('#typedMsg').val("");
-    //     }
-    // })
 }
-
-
-/**
- *
- * TABLE FILL METHODS
- *
- * */
-function fillTable() {
-    $.ajax({
-        method:"GET",
-        url:"fillAll"
-    }).done(function(data) {
-        addEachRow(data);
-    }).fail(function(error) {
-        console.log("error occurred:");
-        console.log(error);
-    })
-}
-
-function addEachRow(data) {
-// console.log(data);                       // data is coming as all elements on the page
-// console.log("data length: " + data.length);
-// console.log(Object.keys(data).length);
-    var table = $('#dataTable');
-    for (var i = 0; i < data.length; i++) {
-        addRow(data[i], table);
-    }
-}
-
-function addRow(data, table) {
-// TODO figure out what is being passed and fill in row
-// TODO may need to modify what is sent over somehow
-console.log('addRow about to crash');
-    var row = '<tr>' +
-        '<td>' + data.username + '</td>' +
-        '<td>' + data.time + '</td>' +
-        '<td>' + data.something1 + '</td>' +
-        '<td>' + data.something2 + '</td>' +
-        '<td>' + data.something3 + '</td>' +
-        '</tr>';
-    table.append(row);
-}
-/*****************/
-
-
-
-
-
-function enterKeyHit(input) {
-    $.ajax({
-        method: "POST",
-        url: "results",
-        data: { typedMsg: input, numErrors: numErrors, timeTaken: elapsedTime }
-    }).done(function() {
-        console.log("Enter key function passed!");
-    }).fail(function() {
-        console.log("Enter key function failed");
-    })
-}
-
-
 
 
 addMyListeners();
-// fillTable();
+
 
 // helpers:
 // http://stackoverflow.com/questions/109086/stop-setinterval-call-in-javascript
@@ -206,3 +134,4 @@ addMyListeners();
 // http://stackoverflow.com/questions/3977792/how-to-convert-keycode-to-character-using-javascript
 // http://stackoverflow.com/questions/25872902/how-can-i-detect-ctrl-v-in-javascript-for-ie-and-firefox
 // https://forums.asp.net/t/1662177.aspx?Capture+a+Client+Side+KeyPress+with+Javascript+and+Run+a+Server+Side+Event+with+ASP+NET+VB+NET
+// http://www.mkyong.com/jquery/how-to-detect-copy-paste-and-cut-behavior-with-jquery/

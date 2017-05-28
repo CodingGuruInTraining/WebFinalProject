@@ -38,8 +38,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var url = process.env.MDB; // 'mongodb://localhost:27017/spddata';
-// var session_url = 'mongodb://localhost:27017/spddata_sessions';
+var url = process.env.MDB;
 
 app.use(session({
     secret:'somethin',
