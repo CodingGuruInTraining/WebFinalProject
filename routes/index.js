@@ -24,6 +24,11 @@ console.log("table checkpoint");
         if(err) {
             return next(err);
         }
+
+console.log("docs count: " + docs.length);
+for (var x = 0; x < docs.length; x++) {
+    console.log(docs[x].user);
+}
         res.render('table', {title: "Speed Typing Stat Tracker", users: docs});
         // res.json(docs);
     });

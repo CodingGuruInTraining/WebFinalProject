@@ -11,24 +11,25 @@
 
     {{#each users}}
         <tr>
-            <td>{{users.username}}</td>
+            <td>{{users.user}}</td>
             <td>{{users.time}}</td>
             <td>{{users.numErrors}}</td>
             <td>{{users.accuracy}}</td>
-            <td>{{users.local.username}} testing</td></tr>
+            <!--<td>{{users.local.username}} testing</td>-->
+        </tr>
     {{/each}}
 
 
-    {{#if data}}
-        <!--TODO not sure if can pass tr with td or just td...-->
-        {{data}}
-    {{else}}
-        <!--Puts above table headers if the tr element tags aren't added-->
+    <!--{{#if data}}-->
+        <!--&lt;!&ndash;TODO not sure if can pass tr with td or just td...&ndash;&gt;-->
+        <!--{{data}}-->
+    <!--{{else}}-->
+        <!--&lt;!&ndash;Puts above table headers if the tr element tags aren't added&ndash;&gt;-->
 
-        <tr><td> </td><td> </td><td> </td><td> </td><td> </td></tr>
+        <!--<tr><td> </td><td> </td><td> </td><td> </td><td> </td></tr>-->
 
-        <br> <tr>No data to show.</tr>
-    {{/if}}
+        <!--<br> <tr>No data to show.</tr>-->
+    <!--{{/if}}-->
 
 </table>
 
