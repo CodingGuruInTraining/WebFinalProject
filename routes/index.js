@@ -10,37 +10,22 @@ var User = require('../models/user');
 var currentUser;
 var Round = require('../models/typingRound');
 
+
+
+
 /* GET home page. */
 router.get('/', isLoggedIn, function(req, res, next) {
   res.redirect('/table');
 });
 
 router.get('/table', isLoggedIn, function(req, res, next) {
-console.log("table checkpoint");
-    // req.db.collection('records').distinct('userid', function(err, docs) { //})
-    // req.db.collection('records').find().toArray(function(err, docs) {
-
     Round.find({}, function(err, docs) {
         if(err) {
             return next(err);
         }
-
-console.log("docs count: " + docs.length);
-for (var x = 0; x < docs.length; x++) {
-    console.log(docs[x].user);
-}
+// TODO refactor name later
         res.render('table', {title: "Speed Typing Stat Tracker", users: docs});
-        // res.json(docs);
     });
-
-console.log("table checkpoint 2");
-//         if (err) {
-// console.log("table error: " + err);
-//             return next(err);
-//         }
-// // TODO refactor name later
-//         return res.render('table', {title: "Speed Typing Stat Tracker", users: docs});
-//     });
 });
 
 
@@ -178,8 +163,6 @@ router.post('/results', function(req, res, next) {
                     userid: currentUser._id};
 
     var newRound = new Round(newEntry);
-    console.log('newRound is: ' + newRound);
-    // currentUser.rounds.push(newRound._id);
 
     newRound.save(function(err) {
         if(err) {
@@ -189,38 +172,8 @@ router.post('/results', function(req, res, next) {
         res.render('results', {greet: "Nice job, pal!", allerrors: numOfErrors, percent: perc,
             timetaken: totalTime});
     });
-
-    // req.db.collection('records').insertOne(newEntry, function(err) {
-    //     if (err) {
-    //         return next(err);
-    //     }
-
-    // });
 });
 
-
-
-
-
-
-// Should GET all database items and send them somewhere, hopefully the table.
-router.get('/fillAll', function(req, res, next) {
-    User.find(function(err, users) {
-        if (err) {
-            return next(err);
-        }
-        res.render('table', {users: users});
-    });
-
-    // console.log("all users: " + query);
-
-    // req.db.collection('records').find().toArray(function(err, docs) {
-    //     if (err) {
-    //         return next(err)
-    //     }
-    //     res.json(docs);
-    // });
-});
 
 
 
@@ -230,7 +183,7 @@ router.post('/typingSubmit', function(req, res) {
 // TODO do some validation with input
     var user = req.body.username;
 console.log(req.body);
-    // req.db.collection('records').insertOne({something: 'something'});
+
     res.redirect('/table');
 });
 
@@ -249,12 +202,12 @@ router.get('/anotherGo', function(req, res) {
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         currentUser = req.user;
-        console.log(currentUser);
-        // console.log(currentUser.local.username);
         return next();
     }
     res.redirect('/login');
 }
+
+
 
 module.exports = router;
 

@@ -1,9 +1,6 @@
 <h1>{{title}}</h1>
 <h2>High Scores</h2>
 
-
-
-
 <table id="dataTable" name="dataTable">
     <!--TODO move all table stuff into handlebars once finalized    -->
     <tr> <th>Username</th><th>Time</th><th># Err</th><th>% Acc</th><th>Best (something}</th> </tr>
@@ -11,32 +8,20 @@
 
     {{#each users}}
         <tr>
-            <td>{{users.user}}</td>
-            <td>{{users.time}}</td>
-            <td>{{users.numErrors}}</td>
-            <td>{{users.accuracy}}</td>
-            <!--<td>{{users.local.username}} testing</td>-->
+            <td>{{this.user}}</td>
+            <td>{{this.time}}</td>
+            <td>{{this.numErrors}}</td>
+            <td>{{this.accuracy}}</td>
         </tr>
     {{/each}}
-
-
-    <!--{{#if data}}-->
-        <!--&lt;!&ndash;TODO not sure if can pass tr with td or just td...&ndash;&gt;-->
-        <!--{{data}}-->
-    <!--{{else}}-->
-        <!--&lt;!&ndash;Puts above table headers if the tr element tags aren't added&ndash;&gt;-->
-
-        <!--<tr><td> </td><td> </td><td> </td><td> </td><td> </td></tr>-->
-
-        <!--<br> <tr>No data to show.</tr>-->
-    <!--{{/if}}-->
-
 </table>
 
-
 <br>
+
 <form action="/typethis" method="get">
 <button type="submit" id="playBtn" name="playBtn" value="Play">Play</button>
 </form>
+
 <br>
+
 <p><a href="/logout">Logout</a></p>
