@@ -89,7 +89,7 @@ router.get('/typethis', isLoggedIn, function(req, res, next) {
             // for (var i = 0; i < Object.keys(data).length; i++) {
             //     allQuotes.add(data[i]);
             // }
-            console.log(allQuotes);
+            // console.log(allQuotes);
         // })
     // }
 // console.log(allQuotes);
@@ -154,8 +154,6 @@ router.post('/results', function(req, res, next) {
 
     var perc = Math.floor((1 - (numOfErrors / quote.length)) * 100);
 
-    console.log("cur user is: " + currentUser.local.username);
-
     var newEntry = {user: currentUser.local.username,
                     time: totalTime,
                     numErrors: numOfErrors,
@@ -169,22 +167,12 @@ router.post('/results', function(req, res, next) {
             return next(err);
         }
         console.log("end of results");
-        res.render('results', {greet: "Nice job, pal!", allerrors: numOfErrors, percent: perc,
-            timetaken: totalTime});
+        // return done(null, newRound);
+        res.render('results', {greet: "Nice job, pal!", mydata: newRound
+            // allerrors: numOfErrors, percent: perc,
+            // timetaken: totalTime
+        });
     });
-});
-
-
-
-
-
-
-router.post('/typingSubmit', function(req, res) {
-// TODO do some validation with input
-    var user = req.body.username;
-console.log(req.body);
-
-    res.redirect('/table');
 });
 
 
