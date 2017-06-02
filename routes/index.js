@@ -166,6 +166,9 @@ router.post('/results', function(req, res, next) {
         if(err) {
             return next(err);
         }
+
+console.log('testing date: ' + newRound.dateTyped);
+
         console.log("end of results");
         // return done(null, newRound);
         res.render('results', {greet: "Nice job, pal!", mydata: newRound
