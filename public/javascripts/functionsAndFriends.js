@@ -6,6 +6,8 @@ var numErrors = 0;
 var setStringArray = [];
 var errorFlag = false;
 
+var formApp = angular.module('myApp', []);
+
 function addMyListeners() {
 // TODO move to server if there is 'time' (pun intended!)
     $('#startBtn').click(function () {
@@ -22,6 +24,14 @@ function addMyListeners() {
                 $('#timer').text(minutes + ":" + seconds);
             }, 1000);
             youMayStart = true;
+
+
+            // formApp.directive('myDirective', function() {
+            //     function myValidation(value) {
+            //         if (value.indexOf())
+            //     }
+            // })
+
         }
     });
 
@@ -39,6 +49,7 @@ function addMyListeners() {
         }
         else {
             console.log("uh uh uhh; gotta try first!");
+            return false;
         }
     });
 
@@ -66,6 +77,9 @@ function addMyListeners() {
             for (var i = 0; i < setString.length; i++) {
                 setStringArray[i] = setString.charCodeAt(i);
             }
+            formApp.controller('myCtrl', function($scope) {
+                $scope.typedModel = setString;
+            });
         }
 
         var typedString = $('#typedMsg').val();
@@ -82,6 +96,7 @@ function addMyListeners() {
                 if (setString.charAt(i) != "." && typedString.charAt(i) != ".") {
                     typedString = typedString.slice(0, -1);
                     $('#typedMsg').val(typedString);
+                    errorFlag = true;
                     return;
                 }
             }
@@ -100,6 +115,13 @@ function addMyListeners() {
 }
 
 
+
+// function validateValues(quoteValue, typedValue) {
+//     if (typedValue.index)
+// }
+
+
+
 addMyListeners();
 
 
@@ -111,3 +133,4 @@ addMyListeners();
 // http://stackoverflow.com/questions/25872902/how-can-i-detect-ctrl-v-in-javascript-for-ie-and-firefox
 // https://forums.asp.net/t/1662177.aspx?Capture+a+Client+Side+KeyPress+with+Javascript+and+Run+a+Server+Side+Event+with+ASP+NET+VB+NET
 // http://www.mkyong.com/jquery/how-to-detect-copy-paste-and-cut-behavior-with-jquery/
+// https://www.w3schools.com/angular/angular_validation.asp

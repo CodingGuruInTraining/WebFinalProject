@@ -15,7 +15,7 @@ var hbs = require('express-handlebars');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
-mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise;
 
 var quoteGrab = require('./helpers/quoteGrabber');
 var serverCode = require('./helpers/serverScript');
@@ -54,6 +54,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+mongoose.Promise = global.Promise;
 
 mongoose.connect(url);
 
