@@ -161,20 +161,27 @@ router.post('/results', function(req, res, next) {
                     userid: currentUser._id};
 
     var newRound = new Round(newEntry);
-
+console.log(newRound);
     newRound.save(function(err) {
         if(err) {
-            return next(err);
+            console.log('your error sir: ' + err.message);
+            throw err;
+            // return next(err);
         }
 
-console.log('testing date: ' + newRound.dateTyped);
+// console.log('testing date: ' + newRound.dateTyped);
 
         console.log("end of results");
         // return done(null, newRound);
-        res.render('results', {greet: "Nice job, pal!", mydata: newRound
-            // allerrors: numOfErrors, percent: perc,
-            // timetaken: totalTime
-        });
+
+        res.send('guess what snuck through?!');
+
+        // res.redirect('/');
+
+        // res.render('results', {greet: "Nice job, pal!", mydata: newRound
+        //     // allerrors: numOfErrors, percent: perc,
+        //     // timetaken: totalTime
+        // });
     });
 });
 

@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
-// var Schema = mongoose.Schema;
+
 var uniqueValidator = require('mongoose-unique-validator');
 
 var typeSchema = new mongoose.Schema({
-    user: { type: String, required: true, unique: true, uniqueCaseInsensitive: true },
+    user: { type: String, required: true, unique: true}, //uniqueCaseInsensitive: true },
     time: Number,
     numErrors: Number,
     dateTyped: { type: Date, default: Date.now },
@@ -12,6 +12,6 @@ var typeSchema = new mongoose.Schema({
 });
 
 var Round = mongoose.model('Round', typeSchema);
-typeSchema.plugin(uniqueValidator);
+// typeSchema.plugin(uniqueValidator);
 
 module.exports = Round;
