@@ -182,6 +182,9 @@ console.log(newRound);
         //     // allerrors: numOfErrors, percent: perc,
         //     // timetaken: totalTime
         // });
+
+        // res.end();
+
     });
 });
 
