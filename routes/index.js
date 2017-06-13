@@ -78,7 +78,9 @@ router.get('/typethis', isLoggedIn, function(req, res, next) {
 
 
     // Checks if quote has been set yet.
-    if (!allQuotes) {
+    // if (!allQuotes) {
+
+
         // Grabs a quote collection from API.
         quoteGrab(function (data, error) {
             if (error) {
@@ -86,8 +88,8 @@ router.get('/typethis', isLoggedIn, function(req, res, next) {
             }
             // console.log(data);
             allQuotes = data;
-        })
-    }
+    //     })
+    // }
 
             // for (var i = 0; i < Object.keys(data).length; i++) {
             //     allQuotes.add(data[i]);
@@ -105,7 +107,7 @@ router.get('/typethis', isLoggedIn, function(req, res, next) {
     // getQuote(data);
             // Renders page.
             res.render('typethis', { msgToType: quote });
-    //     });
+        });
     // }
 
 
