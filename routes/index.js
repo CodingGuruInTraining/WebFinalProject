@@ -86,6 +86,9 @@ router.get('/typethis', isLoggedIn, function(req, res, next) {
             }
             // console.log(data);
             allQuotes = data;
+        })
+    }
+
             // for (var i = 0; i < Object.keys(data).length; i++) {
             //     allQuotes.add(data[i]);
             // }
@@ -102,8 +105,19 @@ router.get('/typethis', isLoggedIn, function(req, res, next) {
     // getQuote(data);
             // Renders page.
             res.render('typethis', { msgToType: quote });
-        });
-    }
+    //     });
+    // }
+
+
+
+    // else {
+    //     console.log('else in typethis route');
+    //     res.redirect('/');
+    //     // res.send('you broke me!');
+    // }
+
+
+
 });
 
 // function getQuote(data) {
