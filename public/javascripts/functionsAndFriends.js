@@ -24,14 +24,6 @@ function addMyListeners() {
                 $('#timer').text(minutes + ":" + seconds);
             }, 1000);
             youMayStart = true;
-
-
-            // formApp.directive('myDirective', function() {
-            //     function myValidation(value) {
-            //         if (value.indexOf())
-            //     }
-            // })
-
         }
     });
 
@@ -114,11 +106,6 @@ function addMyListeners() {
     })
 }
 
-
-
-// function validateValues(quoteValue, typedValue) {
-//     if (typedValue.index)
-// }
 
 
 

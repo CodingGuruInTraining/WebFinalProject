@@ -6,7 +6,6 @@ var userSchema = mongoose.Schema({
         username: String,
         password: String
     }
-    // rounds : [{ type: mongoose.Schema.Types.ObjectId, ref: 'Round' }]
 });
 
 // Making a new function (generateHash) to do something.

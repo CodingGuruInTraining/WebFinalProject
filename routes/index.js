@@ -185,22 +185,16 @@ console.log(newRound);
             // return next(err);
         }
 
-// console.log('testing date: ' + newRound.dateTyped);
 
 console.log("end of results");
-        // return done(null, newRound);
 
-        res.send('guess what snuck through?!');
 
-        // res.redirect('/');
+      //  res.send('guess what snuck through?!');
 
-        // res.render('results', {greet: "Nice job, pal!", mydata: newRound
-        //     // allerrors: numOfErrors, percent: perc,
-        //     // timetaken: totalTime
-        // });
 
-        // res.end();
 
+        res.render('results', {greet: "Nice job, pal!", mydata: newRound
+        });
     });
 });
 

@@ -3,10 +3,6 @@ var mongoose = require('mongoose');
 var uniqueValidator = require('mongoose-unique-validator');
 
 var typeSchema = new mongoose.Schema({
-
-    // dateTyped: { type: Date, default: Date.now, unique: true, read: 'primary' },
-
-    // roundid: { type: mongoose.Schema.Types.ObjectId},
     user: { type: String}, // required: true}, //, unique: true}, //uniqueCaseInsensitive: true },
     time: Number,
     numErrors: Number,
