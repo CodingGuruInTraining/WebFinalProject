@@ -187,7 +187,7 @@ console.log(newRound);
 
 // console.log('testing date: ' + newRound.dateTyped);
 
-        console.log("end of results");
+console.log("end of results");
         // return done(null, newRound);
 
         res.send('guess what snuck through?!');
