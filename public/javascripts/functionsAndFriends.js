@@ -113,7 +113,7 @@ function addMyListeners() {
 
 function sortScoreTbl(tbody, col, asc) {
 
-console.log('sort function start');
+// console.log('sort function start');
 
     var myRows = tbody.rows;
     var numRows = myRows.length;
@@ -128,16 +128,16 @@ console.log('sort function start');
             rowsArray[i][j] = rowCells[j].innerHTML;
         }
     }
-
+//TODO sort is only flipping rows, not actually sorting them.
     rowsArray.sort(function(a, b) {
-        return (a[col] == b[col] ? 0 : ((a[col] > b[col]) ? asc : -1 * asc))
+        return (a[col] === b[col] ? 0 : ((a[col] > b[col]) ? asc : (-1 * asc)))
     });
 
     for (i = 0; i < numRows; i++) {
         myRows[i].innerHTML = "<td>" + rowsArray[i].join("</td><td>") + ("</td>");
     }
 
-console.log('sort function end');
+// console.log('sort function end');
 
 }
 

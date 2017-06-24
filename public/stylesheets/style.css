@@ -21,6 +21,11 @@ th {
     cursor: pointer;
 }
 
+td {
+    border: 1px solid black;
+    padding: 4px 16px;
+}
+
 #msgToType {
     font-weight: bold;
     font: 24px Rockwell;
@@ -29,14 +34,14 @@ th {
 
 
 /******
-LOGIN PAGE CSS
+LOGIN/SIGNUP PAGE CSS
 ******/
 
-#loginDiv {
+#loginDiv, #signupDiv {
     max-width: 450px;
 }
 
-#loginDiv label {
+#loginDiv label, #signupDiv label {
     display: block;
     float: left;
     width: 100px;
@@ -45,7 +50,7 @@ LOGIN PAGE CSS
     text-shadow: 1px 1px 1px #fff;
 }
 
-#loginDiv input {
+#loginDiv input, #signupDiv input {
     border-radius: 3px;
     border: 1px solid #1c3439;
     outline: none;
@@ -56,7 +61,7 @@ LOGIN PAGE CSS
     margin: 2px;
 }
 
-#loginBtn {
+#loginBtn, #signupBtn {
     background: #4aeb4d;
     border: 1px solid #1c3439;
     padding: 5px 15px 5px 15px;
@@ -67,7 +72,7 @@ LOGIN PAGE CSS
     /*text-align: right;*/
 }
 
-#loginDiv fieldset {
+#loginDiv fieldset, #signupDiv fieldset {
     border-radius: 10px;
     margin: 0px 0px 10px 0px;
     border: 1px solid #1c3439;
@@ -76,7 +81,7 @@ LOGIN PAGE CSS
     box-shadow: inset 0px 0px 15px #1c3439;
 }
 
-#loginDiv fieldset legend {
+#loginDiv fieldset legend, #signupDiv fieldset legend {
     color: #057e3d;
     border-top: 1px solid #1c3439;
     border-left: 1px solid #1c3439;
@@ -86,6 +91,23 @@ LOGIN PAGE CSS
     padding: 0px 8px 3px 8px;
     font-weight: bold;
     font-size: 30px;
+}
+
+
+/******
+SIGNUP PAGE OVERRIDES
+******/
+#signupDiv label {
+    color: #3768ff;
+}
+
+#signupBtn {
+    background: #3768ff;
+    box-shadow: inset -1px -1px 3px #05973e;
+}
+
+#signupDiv fieldset legend {
+    color: #3768ff;
 }
 
 /*format helpers:*/
