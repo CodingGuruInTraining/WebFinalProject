@@ -6,6 +6,9 @@ var numErrors = 0;
 var setStringArray = [];
 var errorFlag = false;
 
+var scoreTbl, asc1 = 1, asc2 = 1, asc3 = 1;
+
+
 var formApp = angular.module('myApp', []);
 
 function addMyListeners() {
@@ -108,9 +111,40 @@ function addMyListeners() {
 
 
 
+function sortScoreTbl(tbody, col, asc) {
+
+console.log('sort function start');
+
+    var myRows = tbody.rows;
+    var numRows = myRows.length;
+    var rowsArray = new Array();
+    var rowCells, numCells;
+
+    for (var i = 0; i < numRows; i++) {
+        rowCells = myRows[i].cells;
+        numCells = rowCells.length;
+        rowsArray[i] = new Array();
+        for (var j = 0; j < numCells; j++) {
+            rowsArray[i][j] = rowCells[j].innerHTML;
+        }
+    }
+
+    rowsArray.sort(function(a, b) {
+        return (a[col] == b[col] ? 0 : ((a[col] > b[col]) ? asc : -1 * asc))
+    });
+
+    for (i = 0; i < numRows; i++) {
+        myRows[i].innerHTML = "<td>" + rowsArray[i].join("</td><td>") + ("</td>");
+    }
+
+console.log('sort function end');
+
+}
+
+
 
 addMyListeners();
-
+scoreTbl = $('#tblRows');
 
 // helpers:
 // http://stackoverflow.com/questions/109086/stop-setinterval-call-in-javascript
@@ -121,3 +155,4 @@ addMyListeners();
 // https://forums.asp.net/t/1662177.aspx?Capture+a+Client+Side+KeyPress+with+Javascript+and+Run+a+Server+Side+Event+with+ASP+NET+VB+NET
 // http://www.mkyong.com/jquery/how-to-detect-copy-paste-and-cut-behavior-with-jquery/
 // https://www.w3schools.com/angular/angular_validation.asp
+// http://jsfiddle.net/kgondra/qGf45/

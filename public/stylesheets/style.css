@@ -18,6 +18,7 @@ th {
     border: 2px solid black;
     padding: 4px;
     border-spacing: 1px;
+    cursor: pointer;
 }
 
 #msgToType {
