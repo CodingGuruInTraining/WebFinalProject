@@ -102,7 +102,7 @@ router.get('/typethis', isLoggedIn, function(req, res, next) {
             // draws a random one.
             var datacount = Object.keys(allQuotes).length;
             var randNum = Math.floor((Math.random() * (datacount-1)));
-            quote = allQuotes[randNum];
+            quote = allQuotes[randNum].trim();
 
     // getQuote(data);
             // Renders page.

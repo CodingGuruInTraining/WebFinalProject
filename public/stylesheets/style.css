@@ -41,24 +41,8 @@ button {
 
 
 
-
 /******
-TYPING PAGE
-******/
-
-#msgToType {
-    font-weight: bold;
-    font: 26px Rockwell;
-    display: inline-block;
-    /*border: ;*/
-    /*4px solid #4aeb4d;*/
-}
-
-
-
-
-/******
-LOGIN/SIGNUP PAGEs
+LOGIN/SIGNUP PAGES
 ******/
 
 #loginDiv, #signupDiv {
@@ -127,5 +111,45 @@ SIGNUP PAGE OVERRIDES
     color: #3768ff;
 }
 
+
+
+
+/******
+TYPING PAGE
+******/
+
+#msgToType {
+    font-weight: bold;
+    font: 26px Rockwell;
+    display: inline-block;
+    /*border: ;*/
+    /*4px solid #4aeb4d;*/
+}
+
+#typedMsg {
+    width: 50%;
+    height: 28px;
+    font: 20px MV Boli;
+}
+
+
+
+
+/******
+RESULTS PAGE
+******/
+
+#resultsDiv {
+    text-align: center;
+}
+
+#innerResultsDiv {
+    display: inline-block;
+    text-align: left;
+}
+
+
+
 /*format helpers:*/
 /*https://www.sanwebe.com/2014/08/css-html-forms-designs*/
+/*https://stackoverflow.com/questions/1269589/css-center-block-but-align-contents-to-the-left*/
