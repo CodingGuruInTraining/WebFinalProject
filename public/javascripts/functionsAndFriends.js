@@ -5,6 +5,7 @@ var youMayStart = false;
 var numErrors = 0;
 var setStringArray = [];
 var errorFlag = false;
+var winner = false;
 
 var scoreTbl, asc1 = 1, asc2 = 1, asc3 = 1;
 
@@ -61,11 +62,11 @@ function addMyListeners() {
 
 
     $('#typedMsg').keydown(function (e) {
-        if (youMayStart === false) {
+        if (youMayStart === false || winner === true || e.ctrlKey) {
             return false;
         }
 
-        if (e.ctrlKey) { return false; }
+        // if (e.ctrlKey) { return false; }
 
         if (setString == null) {
             setString = $('#msgToType').text();
@@ -82,6 +83,9 @@ function addMyListeners() {
         if (setString === typedString) {
 // TODO make box around stuff green border.
             console.log('equal strings');
+            winner = true;
+            borderColor(2);
+            return;
         }
 
         for (i = 0; i < typedString.length; i++) {
@@ -92,10 +96,12 @@ function addMyListeners() {
                     typedString = typedString.slice(0, -1);
                     $('#typedMsg').val(typedString);
                     errorFlag = true;
+                    borderColor(1);
                     return;
                 }
             }
         }
+        borderColor(3);
     });
 
 
@@ -105,6 +111,7 @@ function addMyListeners() {
         if (errorFlag) {
             numErrors++;
             errorFlag = false;
+            // setTimeout(borderColor(3), 2000)
         }
     })
 }
@@ -141,6 +148,23 @@ function sortScoreTbl(tbody, col, asc) {
 
 }
 
+
+
+function borderColor(option) {
+    var theColor = "4px solid";
+    switch (option) {
+        case 1:     // RED for wrong!
+            theColor += " #ff0e1b";
+            break;
+        case 2:     // GREEN for complete!
+            theColor += " #4aeb4d";
+            break;
+        default:    // Blank for otherwise.
+            theColor = "0";
+            break;
+    }
+    $('#msgToType').css("border", theColor);
+}
 
 
 addMyListeners();
