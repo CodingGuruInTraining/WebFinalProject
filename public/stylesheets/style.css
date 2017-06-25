@@ -1,8 +1,11 @@
 body {
   padding: 50px;
   font: 16px Rockwell;
-  /*"Lucida Grande", Helvetica, Arial, sans-serif;*/
   background-color: rgba(144, 208, 255, 0.8);
+}
+
+p {
+    font: 16px Rockwell;
 }
 
 a {
@@ -10,7 +13,7 @@ a {
 }
 
 table {
-    font: 14px Rockwell;
+    font: 16px Rockwell;
     border-collapse: collapse;
 }
 
@@ -26,15 +29,35 @@ td {
     padding: 4px 16px;
 }
 
-#msgToType {
+button {
+    background: #33c4c2;
+    border: 1px solid #1c3439;
+    padding: 5px 15px 5px 15px;
+    box-shadow: inset -1px -1px 3px #3768ff;
+    border-radius: 3px;
+    font: 18px Rockwell;
     font-weight: bold;
-    font: 24px Rockwell;
 }
 
 
 
+
 /******
-LOGIN/SIGNUP PAGE CSS
+TYPING PAGE
+******/
+
+#msgToType {
+    font-weight: bold;
+    font: 26px Rockwell;
+    display: inline-block;
+    /*border: 4px solid #4aeb4d;*/
+}
+
+
+
+
+/******
+LOGIN/SIGNUP PAGEs
 ******/
 
 #loginDiv, #signupDiv {
@@ -61,15 +84,8 @@ LOGIN/SIGNUP PAGE CSS
     margin: 2px;
 }
 
-#loginBtn, #signupBtn {
+#loginBtn {
     background: #4aeb4d;
-    border: 1px solid #1c3439;
-    padding: 5px 15px 5px 15px;
-    box-shadow: inset -1px -1px 3px #3768ff;
-    border-radius: 3px;
-    font: 18px Rockwell;
-    font-weight: bold;
-    /*text-align: right;*/
 }
 
 #loginDiv fieldset, #signupDiv fieldset {
