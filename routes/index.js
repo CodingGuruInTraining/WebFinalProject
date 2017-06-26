@@ -5,8 +5,6 @@ var passport = require('passport');
 var quoteGrab = require('../helpers/quoteGrabber');
 // Variable to hold the random quote string.
 var quote;
-var allQuotes;
-var User = require('../models/user');
 var currentUser;
 var Round = require('../models/typingRound');
 
@@ -75,60 +73,18 @@ router.post('/signup', passport.authenticate('local-signup', {
 
 // GET typing page
 router.get('/typethis', isLoggedIn, function(req, res, next) {
-
-
-    // Checks if quote has been set yet.
-    // if (!allQuotes) {
-
-
-        // Grabs a quote collection from API.
-        quoteGrab(function (data, error) {
-            if (error) {
-                res.render('error', {error: error.message});
-            }
-            // console.log(data);
-            // allQuotes = data;
-    //     })
-    // }
-
-            // for (var i = 0; i < Object.keys(data).length; i++) {
-            //     allQuotes.add(data[i]);
-            // }
-// console.log(allQuotes);
-        // })
-    // }
-// console.log(allQuotes);
-//             Gets the length of the quote collection and
-            // draws a random one.
-            // var datacount = Object.keys(allQuotes).length;
-            // var randNum = Math.floor((Math.random() * (datacount-1)));
-            // quote = allQuotes[randNum].trim();
-            quote = data[0].trim();
-// console.log(quote);
-
-    // getQuote(data);
-            // Renders page.
-            res.render('typethis', { msgToType: quote });
-        });
-    // }
-
-
-
-    // else {
-    //     console.log('else in typethis route');
-    //     res.redirect('/');
-    //     // res.send('you broke me!');
-    // }
-
-
-
+    // Grabs a quote collection from API.
+    quoteGrab(function (data, error) {
+        if (error) {
+            res.render('error', {error: error.message});
+        }
+        quote = data[0].trim();
+        // Renders page.
+        res.render('typethis', { msgToType: quote });
+    });
 });
 
-// function getQuote(data) {
-//     var datacount = Object.keys(data).length;
-//     var randNum = Math.floor((Math.random() * (datacount-1)));
-//     quote = data[randNum];
-// }
+
 
 
 
@@ -144,57 +100,46 @@ router.post('/results', function(req, res, next) {
     var inputText = req.body.typedMsg;
     var numOfErrors = req.body.numErrors;
     var totalTime = req.body.timeTaken;
-// TODO may need to remove \ from strings
 
-    console.log("quote length: " + quote.length);
-    console.log("input length: " + inputText.length);
+// console.log("quote length: " + quote.length);
+// console.log("input length: " + inputText.length);
 
+    // Checks if the two strings' character count match first.
     if (quote != inputText) {
+        // Client-side validation would have taken care of what is
+        // provided in inputText (no further validation needed).
         if (quote.length > inputText.length) {
-            // Client-side validation would have taken care of what is
-            // provided in inputText (no further validation needed);
-
-            var diff = quote.length - inputText.length;
-
-
-            console.log("errors before: " + numOfErrors);
-            numOfErrors += diff; // (quote.length - inputText.length);
-            console.log("errors after: " + numOfErrors);
-            //
-            // for (var i = 0; i < quote.length; i++) {
-            //     if (quote.charAt(i) != inputText.charAt(i)) {
-            //         numOfErrors++;
-            //         break;
-            //     }
-            // }
+            //Calculates difference in counts.
+            var diff = 0;
+            diff += (quote.length - inputText.length);
+            // Checks if typed string has more characters and converts to positive.
+            if (diff < 0) {
+                diff *= -1;
+            }
+            // Adds difference to error count.
+console.log("errors before: " + numOfErrors);
+            numOfErrors += diff;
+console.log("errors after: " + numOfErrors);
         }
     }
-
+    // Calculates the accuracy by dividing error count by total length of set string.
+    // Ironically, it is not all that accurate.
     var perc = Math.floor((1 - (numOfErrors / quote.length)) * 100);
-
+    // Creates a JSON object of fields and values for new Round object.
     var newEntry = {user: currentUser.local.username,
                     time: totalTime,
                     numErrors: numOfErrors,
                     accuracy: perc,
                     userid: currentUser._id};
-
+    // Creates new Round object.
     var newRound = new Round(newEntry);
-console.log(newRound);
+    // Saves object to database.
     newRound.save(function(err) {
         if(err) {
             console.log('your error sir: ' + err.message);
             throw err;
-            // return next(err);
         }
-
-
-console.log("end of results");
-
-
-      //  res.send('guess what snuck through?!');
-
-
-
+        // Renders page.
         res.render('results', {greet: "Nice job, pal!", mydata: newRound
         });
     });
@@ -203,7 +148,7 @@ console.log("end of results");
 
 
 
-
+// GET Another button's action.
 router.get('/anotherGo', function(req, res) {
     res.redirect('/typethis');
 });
@@ -211,7 +156,7 @@ router.get('/anotherGo', function(req, res) {
 
 
 
-// Makes a function to check authentication before continuing.
+// Function to check authentication before continuing.
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         currentUser = req.user;
