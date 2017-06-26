@@ -29,6 +29,7 @@ function addMyListeners() {
             }, 1000);
             youMayStart = true;
         }
+        $('#typedMsg').focus();
     });
 
 

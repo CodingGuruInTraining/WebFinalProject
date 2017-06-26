@@ -87,22 +87,24 @@ router.get('/typethis', isLoggedIn, function(req, res, next) {
                 res.render('error', {error: error.message});
             }
             // console.log(data);
-            allQuotes = data;
+            // allQuotes = data;
     //     })
     // }
 
             // for (var i = 0; i < Object.keys(data).length; i++) {
             //     allQuotes.add(data[i]);
             // }
-            // console.log(allQuotes);
+// console.log(allQuotes);
         // })
     // }
 // console.log(allQuotes);
 //             Gets the length of the quote collection and
             // draws a random one.
-            var datacount = Object.keys(allQuotes).length;
-            var randNum = Math.floor((Math.random() * (datacount-1)));
-            quote = allQuotes[randNum].trim();
+            // var datacount = Object.keys(allQuotes).length;
+            // var randNum = Math.floor((Math.random() * (datacount-1)));
+            // quote = allQuotes[randNum].trim();
+            quote = data[0].trim();
+// console.log(quote);
 
     // getQuote(data);
             // Renders page.
