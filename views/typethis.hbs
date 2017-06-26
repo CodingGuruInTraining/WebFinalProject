@@ -1,4 +1,4 @@
-<div id="typingMessage" ng-app="myApp" ng-controller="myCtrl">
+<div id="typingMessage">
 
     <p>Elapsed Time: <span id="timer">0:00</span></p>
     <br>
@@ -10,7 +10,7 @@
     <p id="msgToType" name="msgToType">{{{msgToType}}}</p>
     <br>
     <label for="typedMsg">Type here: </label>
-    <input type="text" id="typedMsg" name="typedMsg" ng-model="typedModel"/>
+    <input type="text" id="typedMsg" name="typedMsg"/>
 
     <input type="hidden" id="numErrors" name="numErrors" value="">
     <input type="hidden" id="timeTaken" name="timeTaken" value="">

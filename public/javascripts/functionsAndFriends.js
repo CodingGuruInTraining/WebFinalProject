@@ -1,17 +1,17 @@
-var elapsedTime = 0;
-var theInterval;
-var setString;
-var youMayStart = false;
-var numErrors = 0;
-var setStringArray = [];
-var errorFlag = false;
-var winner = false;
+var elapsedTime = 0;        // Holds count of seconds.
+var theInterval;            // Interval object.
+var setString;              // String from API.
+var youMayStart = false;    // Flag that 'Start' button was pressed.
+var numErrors = 0;          // Error counter.
+var setStringArray = [];    // Array to hold characters of string.
+var errorFlag = false;      // Flag that wrong key was pressed.
+var winner = false;         // Flag that string has been completed.
 
 var scoreTbl, asc1 = 1, asc2 = 1, asc3 = 1;
 
 
-var formApp = angular.module('myApp', []);
 
+// Function ran at start that adds event listeners to specific elements.
 function addMyListeners() {
 // TODO move to server if there is 'time' (pun intended!)
     $('#startBtn').click(function () {
@@ -25,113 +25,132 @@ function addMyListeners() {
                 if (seconds < 10) {
                     seconds = "0" + seconds;
                 }
+                // Sets element's text to the count. Ran every second.
                 $('#timer').text(minutes + ":" + seconds);
             }, 1000);
+            // Activates flag that other functions use.
             youMayStart = true;
         }
+        // Sets focus to the textbox.
         $('#typedMsg').focus();
     });
 
 
 
 
-
-
+/******
+ DONE BUTTON - typethis.hbs
+ ******/
     $('#doneBtn').click(function () {
+        // Checks if flag is activated before continuing.
         if (youMayStart) {
+            // Stops the time counter.
             clearInterval(theInterval);
             youMayStart = false;
+            // Sets hidden elements' values to be passed to server.
             $('#numErrors').val(numErrors);
             $('#timeTaken').val(elapsedTime);
         }
         else {
+//TODO test if actually stopping anything.
             console.log("uh uh uhh; gotta try first!");
             return false;
         }
     });
 
 
+
+
+/******
+ TEXTBOX - typethis.hbs
+ ******/
+    // Should prevent copying text while in textbox.
     $('#typedMsg').bind('copy', function() {
         console.log("trying to copy is wrong!");
         return false;
     });
 
+    // Should prevent pasting text while in textbox.
     $('#typedMsg').bind('paste', function() {
         console.log("trying to paste is wrong!");
         return false;
     });
 
-
-    $('#typedMsg').keydown(function (e) {
+    // Determines what to do with key pressed.
+    $('#typedMsg').keydown(function(e) {
+        // Checks if flags are activated or if the CTRL key is pressed.
         if (youMayStart === false || winner === true || e.ctrlKey) {
             return false;
         }
-
-        // if (e.ctrlKey) { return false; }
-
+        // Checks if variable is empty and assigns string value to it.
         if (setString == null) {
             setString = $('#msgToType').text();
+            // Splits string into char array.
             for (var i = 0; i < setString.length; i++) {
                 setStringArray[i] = setString.charCodeAt(i);
             }
-            formApp.controller('myCtrl', function($scope) {
-                $scope.typedModel = setString;
-            });
         }
-
+        // Sets current value in textbox to variable.
         var typedString = $('#typedMsg').val();
-
+        // Checks if strings match.
         if (setString === typedString) {
-// TODO make box around stuff green border.
-            console.log('equal strings');
+            // Sets flag and runs border color changing function.
             winner = true;
             borderColor(2);
             return;
         }
-
+        // Loops through textbox value.
         for (i = 0; i < typedString.length; i++) {
             // Compares each character.
             if (setString.charAt(i) != typedString.charAt(i)) {
                 // Checks for periods, which don't seem to work in above check.
                 if (setString.charAt(i) != "." && typedString.charAt(i) != ".") {
+                    // Removes last typed character and sets to textbox's value.
                     typedString = typedString.slice(0, -1);
                     $('#typedMsg').val(typedString);
+                    // Sets flag and runs border color changing function.
                     errorFlag = true;
                     borderColor(1);
                     return;
                 }
             }
         }
+        // Runs border color changing function that will not show anything.
         borderColor(3);
     });
 
-
-
-
+    // Determines if an error was made and should be added to count.
     $('#typedMsg').keyup(function() {
         if (errorFlag) {
             numErrors++;
             errorFlag = false;
-            // setTimeout(borderColor(3), 2000)
         }
     })
 }
 
 
 
+
+/******
+ TABLE SORT FUNCTION - table.hbs
+ ******/
+
 function sortScoreTbl(tbody, col, asc) {
-
-// console.log('sort function start');
-
+    // Captures 'tr's in variable.
     var myRows = tbody.rows;
+    // Counts number of rows.
     var numRows = myRows.length;
+    // Defines empty variables to be filled in.
     var rowsArray = new Array();
     var rowCells, numCells;
-
+    // Loops through table rows.
     for (var i = 0; i < numRows; i++) {
+        // Captures 'td's in row.
         rowCells = myRows[i].cells;
+        // Counts number of cells.
         numCells = rowCells.length;
         rowsArray[i] = new Array();
+        // Saves cell value to array.
         for (var j = 0; j < numCells; j++) {
             rowsArray[i][j] = rowCells[j].innerHTML;
         }
@@ -141,18 +160,22 @@ function sortScoreTbl(tbody, col, asc) {
         return (a[col] === b[col] ? 0 : ((a[col] > b[col]) ? asc : (-1 * asc)))
     });
 
+    // Adds values back to table.
     for (i = 0; i < numRows; i++) {
         myRows[i].innerHTML = "<td>" + rowsArray[i].join("</td><td>") + ("</td>");
     }
-
-// console.log('sort function end');
-
 }
 
 
 
+
+/******
+ BORDER COLOR CHANGING FUNCTION - typethis.hbs
+ ******/
 function borderColor(option) {
+    // Defines initial CSS string.
     var theColor = "4px solid";
+    // Determines which change to make based on provided parameter.
     switch (option) {
         case 1:     // RED for wrong!
             theColor += " #ff0e1b";
@@ -164,12 +187,19 @@ function borderColor(option) {
             theColor = "0";
             break;
     }
+    // Changes CSS of textbox border.
     $('#msgToType').css("border", theColor);
 }
 
 
+
+// Actions ran at start:
 addMyListeners();
 scoreTbl = $('#tblRows');
+
+
+
+
 
 // helpers:
 // http://stackoverflow.com/questions/109086/stop-setinterval-call-in-javascript
