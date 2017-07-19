@@ -7,6 +7,8 @@ var typeSchema = new mongoose.Schema({
     numErrors: Number,
     dateTyped: { type: Date, default: Date.now },
     accuracy: Number,
+    wpm: Number,
+    typedText: String,
     // This should reference the user in case future features need to query for this.
     userid: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 });
