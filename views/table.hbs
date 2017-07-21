@@ -9,6 +9,7 @@
             <th onclick="sortScoreTbl(tblRows, 1, asc1); asc1 *= -1; asc2 = 1; asc3 = 1;">Time</th>
             <th onclick="sortScoreTbl(tblRows, 2, asc1); asc1 *= -1; asc2 = 1; asc3 = 1;"># Err</th>
             <th onclick="sortScoreTbl(tblRows, 3, asc1); asc1 *= -1; asc2 = 1; asc3 = 1;">% Acc</th>
+            <th onclick="sortScoreTbl(tblRows, 4, asc1); asc1 *= -1; asc2 = 1; asc3 = 1;">WPM</th>
         </tr>
     </thead>
 
@@ -19,6 +20,7 @@
                 <td>{{this.time}}</td>
                 <td>{{this.numErrors}}</td>
                 <td>{{this.accuracy}}</td>
+                <td>{{this.wpm}}</td>
             </tr>
         {{/each}}
     </tbody>

@@ -123,8 +123,7 @@ router.post('/results', function(req, res, next) {
             throw err;
         }
         // Renders page.
-        res.render('results', {greet: msg, mydata: newRound
-        });
+        res.render('results', {greet: msg, mydata: newRound});
     });
 });
 

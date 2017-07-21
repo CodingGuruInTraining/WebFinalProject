@@ -6,12 +6,11 @@ module.exports = {
         var errorCount = typedRound.numErrors;
         var timeTaken = typedRound.time / 60;
 
-// TODO move string compare (for errors) here.
+
         if (quote.length > numTypedChars) {
             var diff = 0;
             diff += (quote.length - numTypedChars);
             errorCount += diff;
-// TODO update error property.
         }
 
         var wordsCount = numTypedChars / 5;
@@ -20,14 +19,16 @@ module.exports = {
 
 console.log("wpm field before: " + typedRound.wpm);
 console.log("acc field before: " + typedRound.accuracy);
-//TODO set a default in schema if ^^^^ errors out.
+
     typedRound.wpm = wpmCalc;
     typedRound.accuracy = accuracyCalc;
+    typedRound.numErrors = errorCount;
+
 console.log("wpm field after: " + typedRound.wpm);
 console.log("acc field after: " + typedRound.accuracy);
-// TODO save/update Round?
 
-    // Not sure if returning is needed; should test results without first.
+
+
     return typedRound;
     },
 
