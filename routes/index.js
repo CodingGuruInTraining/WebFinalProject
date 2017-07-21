@@ -9,6 +9,9 @@ var currentUser;
 var Round = require('../models/typingRound');
 
 
+var myFunctions = require('../helpers/serverScript');
+
+
 
 
 /* GET home page. */
@@ -101,38 +104,18 @@ router.post('/results', function(req, res, next) {
     var numOfErrors = req.body.numErrors;
     var totalTime = req.body.timeTaken;
 
-// console.log("quote length: " + quote.length);
-// console.log("input length: " + inputText.length);
-
-    // Checks if the two strings' character count match first.
-    if (quote != inputText) {
-        // Client-side validation would have taken care of what is
-        // provided in inputText (no further validation needed).
-        if (quote.length > inputText.length) {
-            //Calculates difference in counts.
-            var diff = 0;
-            diff += (quote.length - inputText.length);
-            // Checks if typed string has more characters and converts to positive.
-            if (diff < 0) {
-                diff *= -1;
-            }
-            // Adds difference to error count.
-console.log("errors before: " + numOfErrors);
-            numOfErrors += diff;
-console.log("errors after: " + numOfErrors);
-        }
-    }
-    // Calculates the accuracy by dividing error count by total length of set string.
-    // Ironically, it is not all that accurate.
-    var perc = Math.floor((1 - (numOfErrors / quote.length)) * 100);
     // Creates a JSON object of fields and values for new Round object.
     var newEntry = {user: currentUser.local.username,
                     time: totalTime,
                     numErrors: numOfErrors,
-                    accuracy: perc,
+                    typedText: inputText,
                     userid: currentUser._id};
     // Creates new Round object.
     var newRound = new Round(newEntry);
+
+    newRound = myFunctions.calcAccuracy(newRound, quote);
+    var msg = myFunctions.getMessage(newRound.accuracy);
+
     // Saves object to database.
     newRound.save(function(err) {
         if(err) {
@@ -140,7 +123,7 @@ console.log("errors after: " + numOfErrors);
             throw err;
         }
         // Renders page.
-        res.render('results', {greet: "Nice job, pal!", mydata: newRound
+        res.render('results', {greet: msg, mydata: newRound
         });
     });
 });

@@ -157,7 +157,23 @@ function sortScoreTbl(tbody, col, asc) {
     }
 //TODO sort is only flipping rows, not actually sorting them.
     rowsArray.sort(function(a, b) {
-        return (a[col] === b[col] ? 0 : ((a[col] > b[col]) ? asc : (-1 * asc)))
+        // return (a[col] === b[col] ? 0 : ((a[col] > b[col]) ? asc : (-1 * asc)))
+
+        var retval = 0;
+        var fA = parseFloat(a[col]);
+        var fB = parseFloat(b[col]);
+        if (a[col] != b[col]) {
+            // First checks if numerical.
+            if ((fA == a[col]) && (fB == b[col])) {
+                retval = (fA > fB) ? asc : asc * -1;
+            }
+            // Non-numerical?
+            else {
+                retval = (a[col] > b[col]) ? asc : asc * -1;
+            }
+        }
+        return retval;
+
     });
 
     // Adds values back to table.
@@ -211,3 +227,4 @@ scoreTbl = $('#tblRows');
 // http://www.mkyong.com/jquery/how-to-detect-copy-paste-and-cut-behavior-with-jquery/
 // https://www.w3schools.com/angular/angular_validation.asp
 // http://jsfiddle.net/kgondra/qGf45/
+// https://codereview.stackexchange.com/questions/37632/sorting-an-html-table-with-javascript
