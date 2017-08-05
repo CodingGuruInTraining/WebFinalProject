@@ -149,12 +149,13 @@ function addMyListeners() {
             }
 
             var typedString = $('#typedText').text();
-            if (setString === typedString) {
-                // Sets flag and runs border color changing function.
-                winner = true;
-                borderColor(2);
-                return;
-            }
+            if (checkWin(setString, typedString)) { return; }
+            // if (setString === typedString) {
+            //     // Sets flag and runs border color changing function.
+            //     winner = true;
+            //     borderColor(2);
+            //     return;
+            // }
             // Loops through textbox value.
             for (i = 0; i < typedString.length; i++) {
                 // Compares each character.
@@ -169,10 +170,11 @@ function addMyListeners() {
                 }
             }
 
-            $('#typedText').text($('#typedText').text() + String.fromCharCode(e.which));
+            var newString = typedString + String.fromCharCode(e.which);
 
+            $('#typedText').text(newString);
 
-
+            checkWin(setString, newString);
         });
         $(this).keyup(function() {
             if (errorFlag) {
@@ -261,6 +263,20 @@ function borderColor(option) {
     }
     // Changes CSS of textbox border.
     $('#msgToType').css("border", theColor);
+}
+
+
+
+/******
+ WIN CHECK FUNCTION - typethis.hbs
+ ******/
+function checkWin(string1, string2) {
+    if (string1 === string2) {
+        winner = true;
+        borderColor(2);
+        return true;
+    }
+    else { return false; }
 }
 
 
