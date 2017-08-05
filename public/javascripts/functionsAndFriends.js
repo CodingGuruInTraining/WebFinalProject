@@ -128,6 +128,16 @@ function addMyListeners() {
     });
 
     $(document).ready(function() {
+
+        $(this).bind('copy', function() {
+            console.log("trying to copy is wrong!");
+            return false;
+        });
+        $(this).bind('paste', function() {
+            console.log("trying to paste is wrong!");
+            return false;
+        });
+
         $(this).keypress(function(e) {
             // Checks if variable is empty and assigns string value to it.
             if (setString == null) {
@@ -164,7 +174,7 @@ function addMyListeners() {
 
 
         });
-        $(this).keyup(function(e) {
+        $(this).keyup(function() {
             if (errorFlag) {
                 numErrors++;
                 errorFlag = false;
