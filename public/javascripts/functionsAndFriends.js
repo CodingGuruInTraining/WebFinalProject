@@ -125,7 +125,53 @@ function addMyListeners() {
             numErrors++;
             errorFlag = false;
         }
+    });
+
+    $(document).ready(function() {
+        $(this).keypress(function(e) {
+            // Checks if variable is empty and assigns string value to it.
+            if (setString == null) {
+                setString = $('#msgToType').text();
+                // Splits string into char array.
+                for (var i = 0; i < setString.length; i++) {
+                    setStringArray[i] = setString.charCodeAt(i);
+                }
+            }
+
+            var typedString = $('#typedText').text();
+            if (setString === typedString) {
+                // Sets flag and runs border color changing function.
+                winner = true;
+                borderColor(2);
+                return;
+            }
+            // Loops through textbox value.
+            for (i = 0; i < typedString.length; i++) {
+                // Compares each character.
+                if (setString.charAt(i) != typedString.charAt(i)) {
+                    // Checks for periods, which don't seem to work in above check.
+                    if (setString.charAt(i) != "." && typedString.charAt(i) != ".") {
+                        // Sets flag and runs border color changing function.
+                        errorFlag = true;
+                        borderColor(1);
+                        return;
+                    }
+                }
+            }
+
+            $('#typedText').text($('#typedText').text() + String.fromCharCode(e.which));
+
+
+
+        });
+        $(this).keyup(function(e) {
+            if (errorFlag) {
+                numErrors++;
+                errorFlag = false;
+            }
+        })
     })
+
 }
 
 
