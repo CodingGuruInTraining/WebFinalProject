@@ -122,12 +122,10 @@ TYPING PAGE
     font-weight: bold;
     font: 26px Rockwell;
     display: inline-block;
-    /*border: ;*/
-    /*4px solid #4aeb4d;*/
 }
 
-#typedMsg {
-    width: 50%;
+#typedText {
+    /*width: 50%;*/
     height: 28px;
     font: 20px MV Boli;
 }

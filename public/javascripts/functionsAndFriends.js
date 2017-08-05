@@ -13,7 +13,6 @@ var scoreTbl, asc1 = 1, asc2 = 1, asc3 = 1;
 
 // Function ran at start that adds event listeners to specific elements.
 function addMyListeners() {
-// TODO move to server if there is 'time' (pun intended!)
     $('#startBtn').click(function () {
         // Checks if interval has been set already to avoid activating
         // multiple instances (speeds up clock).
@@ -31,8 +30,8 @@ function addMyListeners() {
             // Activates flag that other functions use.
             youMayStart = true;
         }
-        // Sets focus to the textbox.
-        $('#typedMsg').focus();
+        // // Sets focus to the textbox.
+        // $('#typedMsg').focus();
     });
 
 
@@ -52,7 +51,6 @@ function addMyListeners() {
             $('#timeTaken').val(elapsedTime);
         }
         else {
-//TODO test if actually stopping anything.
             console.log("uh uh uhh; gotta try first!");
             return false;
         }
@@ -62,71 +60,8 @@ function addMyListeners() {
 
 
 /******
- TEXTBOX - typethis.hbs
+ TYPING EVENTS - typethis.hbs
  ******/
-    // Should prevent copying text while in textbox.
-    $('#typedMsg').bind('copy', function() {
-        console.log("trying to copy is wrong!");
-        return false;
-    });
-
-    // Should prevent pasting text while in textbox.
-    $('#typedMsg').bind('paste', function() {
-        console.log("trying to paste is wrong!");
-        return false;
-    });
-
-    // Determines what to do with key pressed.
-    $('#typedMsg').keydown(function(e) {
-        // Checks if flags are activated or if the CTRL key is pressed.
-        if (youMayStart === false || winner === true || e.ctrlKey) {
-            return false;
-        }
-        // Checks if variable is empty and assigns string value to it.
-        if (setString == null) {
-            setString = $('#msgToType').text();
-            // Splits string into char array.
-            for (var i = 0; i < setString.length; i++) {
-                setStringArray[i] = setString.charCodeAt(i);
-            }
-        }
-        // Sets current value in textbox to variable.
-        var typedString = $('#typedMsg').val();
-        // Checks if strings match.
-        if (setString === typedString) {
-            // Sets flag and runs border color changing function.
-            winner = true;
-            borderColor(2);
-            return;
-        }
-        // Loops through textbox value.
-        for (i = 0; i < typedString.length; i++) {
-            // Compares each character.
-            if (setString.charAt(i) != typedString.charAt(i)) {
-                // Checks for periods, which don't seem to work in above check.
-                if (setString.charAt(i) != "." && typedString.charAt(i) != ".") {
-                    // Removes last typed character and sets to textbox's value.
-                    typedString = typedString.slice(0, -1);
-                    $('#typedMsg').val(typedString);
-                    // Sets flag and runs border color changing function.
-                    errorFlag = true;
-                    borderColor(1);
-                    return;
-                }
-            }
-        }
-        // Runs border color changing function that will not show anything.
-        borderColor(3);
-    });
-
-    // Determines if an error was made and should be added to count.
-    $('#typedMsg').keyup(function() {
-        if (errorFlag) {
-            numErrors++;
-            errorFlag = false;
-        }
-    });
-
     $(document).ready(function() {
 
         $(this).bind('copy', function() {
@@ -139,6 +74,7 @@ function addMyListeners() {
         });
 
         $(this).keypress(function(e) {
+            if (youMayStart == false || winner == true) { return false; }
             // Checks if variable is empty and assigns string value to it.
             if (setString == null) {
                 setString = $('#msgToType').text();
@@ -150,13 +86,8 @@ function addMyListeners() {
 
             var typedString = $('#typedText').text();
             if (checkWin(setString, typedString)) { return; }
-            // if (setString === typedString) {
-            //     // Sets flag and runs border color changing function.
-            //     winner = true;
-            //     borderColor(2);
-            //     return;
-            // }
-            // Loops through textbox value.
+
+            // Loops through element value.
             for (i = 0; i < typedString.length; i++) {
                 // Compares each character.
                 if (setString.charAt(i) != typedString.charAt(i)) {
@@ -169,13 +100,11 @@ function addMyListeners() {
                     }
                 }
             }
-
             var newString = typedString + String.fromCharCode(e.which);
-
             $('#typedText').text(newString);
-
             checkWin(setString, newString);
         });
+
         $(this).keyup(function() {
             if (errorFlag) {
                 numErrors++;
