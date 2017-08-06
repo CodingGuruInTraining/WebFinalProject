@@ -2,7 +2,9 @@ module.exports = {
 
     calcAccuracy : function(typedRound, quote)
     {
+console.log('starting calculations');
         var numTypedChars = typedRound.typedText.length;
+console.log('length count: ' + numTypedChars);
         var errorCount = typedRound.numErrors;
         var timeTaken = typedRound.time / 60;
 

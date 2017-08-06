@@ -48,6 +48,7 @@ function addMyListeners() {
             clearInterval(theInterval);
             youMayStart = false;
             // Sets hidden elements' values to be passed to server.
+            $('#hiddenTypedText').val($('#typedText').text());
             $('#numErrors').val(numErrors);
             $('#timeTaken').val(elapsedTime);
         }

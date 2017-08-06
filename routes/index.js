@@ -108,10 +108,11 @@ router.get('/typethis', isLoggedIn, function(req, res, next) {
 // POST results page
 router.post('/results', function(req, res, next) {
     // Captures passed values into variables.
-    var inputText = req.body.typedMsg;
+console.log(req.body);
+    var inputText = req.body.typedText;
     var numOfErrors = req.body.numErrors;
     var totalTime = req.body.timeTaken;
-
+console.log('inputText: ' + inputText);
     // Creates a JSON object of fields and values for new Round object.
     var newEntry = {user: currentUser.local.username,
                     time: totalTime,
