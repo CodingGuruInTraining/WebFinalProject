@@ -13,6 +13,9 @@ var scoreTbl, asc1 = 1, asc2 = 1, asc3 = 1;
 
 // Function ran at start that adds event listeners to specific elements.
 function addMyListeners() {
+/******
+ START BUTTON - typethis.hbs
+ ******/
     $('#startBtn').click(function () {
         // Checks if interval has been set already to avoid activating
         // multiple instances (speeds up clock).
@@ -30,8 +33,6 @@ function addMyListeners() {
             // Activates flag that other functions use.
             youMayStart = true;
         }
-        // // Sets focus to the textbox.
-        // $('#typedMsg').focus();
     });
 
 
@@ -105,7 +106,17 @@ function addMyListeners() {
             checkWin(setString, newString);
         });
 
-        $(this).keyup(function() {
+        $(this).keyup(function(e) {
+            // Checks for backspace keypress.
+            if (e.keyCode == 8) {
+                // Captures element's value and slices it.
+                var typedString = $('#typedText').text();
+                typedString = typedString.slice(0, -1);
+                $('#typedText').text(typedString);
+                // Resets border color.
+                borderColor(999);
+            }
+
             if (errorFlag) {
                 numErrors++;
                 errorFlag = false;
