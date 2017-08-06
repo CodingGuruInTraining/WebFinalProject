@@ -134,6 +134,7 @@ function addMyListeners() {
  ******/
 
 function sortScoreTbl(tbody, col, asc) {
+    asc1 *= -1;
     // Captures 'tr's in variable.
     var myRows = tbody.rows;
     // Counts number of rows.
@@ -179,7 +180,7 @@ function sortScoreTbl(tbody, col, asc) {
         myRows[i].innerHTML = "<td>" + rowsArray[i].join("</td><td>") + ("</td>");
     }
 
-    asc1 *= -1;
+    // asc1 *= -1;
 
 }
 
@@ -227,7 +228,7 @@ function checkWin(string1, string2) {
 // Actions ran at start:
 addMyListeners();
 scoreTbl = $('#tblRows');
-
+// sortScoreTbl(scoreTbl, 4, asc1);
 
 
 

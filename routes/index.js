@@ -24,6 +24,11 @@ router.get('/table', isLoggedIn, function(req, res, next) {
         if(err) {
             return next(err);
         }
+
+        docs.sort(function(a,b) {
+            return b.wpm - a.wpm;
+        });
+
 // TODO refactor name later
         res.render('table', {title: "Speed Typing Stat Tracker", users: docs});
     });
@@ -155,5 +160,6 @@ module.exports = router;
 
 
 // helpers:
-//     http://stackoverflow.com/questions/13782698/get-total-number-of-items-on-json-object
+// http://stackoverflow.com/questions/13782698/get-total-number-of-items-on-json-object
 // https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
+// https://stackoverflow.com/questions/17934207/handlebars-js-custom-function-sort
