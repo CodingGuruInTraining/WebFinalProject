@@ -12,6 +12,9 @@ var Round = require('../models/typingRound');
 var myFunctions = require('../helpers/serverScript');
 
 
+var Handlebars = require("handlebars");
+var NumeralHelper = require("handlebars.numeral");
+NumeralHelper.registerHelpers(Handlebars);
 
 
 /* GET home page. */
@@ -163,3 +166,4 @@ module.exports = router;
 // http://stackoverflow.com/questions/13782698/get-total-number-of-items-on-json-object
 // https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
 // https://stackoverflow.com/questions/17934207/handlebars-js-custom-function-sort
+// https://www.npmjs.com/package/handlebars.numeral
