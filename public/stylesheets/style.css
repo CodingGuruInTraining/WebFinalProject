@@ -138,12 +138,16 @@ RESULTS PAGE
 ******/
 
 #resultsDiv {
-    text-align: center;
+    /*text-align: center;*/
 }
 
 #innerResultsDiv {
     display: inline-block;
     text-align: left;
+}
+
+#innerResultsDiv p {
+    font: 22px Rockwell;
 }
 
 

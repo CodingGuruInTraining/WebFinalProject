@@ -4,17 +4,18 @@ module.exports = {
     {
 console.log('starting calculations');
         var numTypedChars = typedRound.typedText.length;
-console.log('length count: ' + numTypedChars);
+console.log('typed length count: ' + numTypedChars);
         var errorCount = typedRound.numErrors;
         var timeTaken = typedRound.time / 60;
 
-
+console.log('quote length: ' + quote.length);
+console.log('error count before: ' + errorCount);
         if (quote.length > numTypedChars) {
             var diff = 0;
             diff += (quote.length - numTypedChars);
             errorCount += diff;
         }
-
+console.log('error count after: ' + errorCount);
         var wordsCount = numTypedChars / 5;
         var wpmCalc = (wordsCount - errorCount) / timeTaken;
         var accuracyCalc = (numTypedChars / quote.length) * 100;
