@@ -7,7 +7,7 @@ var setStringArray = [];    // Array to hold characters of string.
 var errorFlag = false;      // Flag that wrong key was pressed.
 var winner = false;         // Flag that string has been completed.
 
-var scoreTbl, asc1 = 1, asc2 = 1, asc3 = 1;
+var scoreTbl, asc1 = 1;
 
 
 
@@ -178,6 +178,9 @@ function sortScoreTbl(tbody, col, asc) {
     for (i = 0; i < numRows; i++) {
         myRows[i].innerHTML = "<td>" + rowsArray[i].join("</td><td>") + ("</td>");
     }
+
+    asc1 *= -1;
+
 }
 
 
