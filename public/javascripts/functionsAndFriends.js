@@ -64,18 +64,18 @@ function addMyListeners() {
 /******
  TYPING EVENTS - typethis.hbs
  ******/
-    $(document).ready(function() {
+    // $(document).ready(function() {
 
-        $(this).bind('copy', function() {
+        $('#typingMessage').bind('copy', function() {
             console.log("trying to copy is wrong!");
             return false;
         });
-        $(this).bind('paste', function() {
+        $('#typingMessage').bind('paste', function() {
             console.log("trying to paste is wrong!");
             return false;
         });
 
-        $(this).keypress(function(e) {
+        $('#typingMessage').keypress(function(e) {
             if (youMayStart == false || winner == true) { return false; }
             // Checks if variable is empty and assigns string value to it.
             if (setString == null) {
@@ -107,7 +107,7 @@ function addMyListeners() {
             checkWin(setString, newString);
         });
 
-        $(this).keyup(function(e) {
+        $('#typingMessage').keyup(function(e) {
             // Checks for backspace keypress.
             if (e.keyCode == 8) {
                 // Captures element's value and slices it.
@@ -123,7 +123,8 @@ function addMyListeners() {
                 errorFlag = false;
             }
         })
-    })
+    // }
+    // )
 
 }
 
@@ -229,6 +230,7 @@ function checkWin(string1, string2) {
 // Actions ran at start:
 addMyListeners();
 scoreTbl = $('#tblRows');
+$('#typingMessage').focus();
 // sortScoreTbl(scoreTbl, 4, asc1);
 
 
@@ -245,3 +247,4 @@ scoreTbl = $('#tblRows');
 // https://www.w3schools.com/angular/angular_validation.asp
 // http://jsfiddle.net/kgondra/qGf45/
 // https://codereview.stackexchange.com/questions/37632/sorting-an-html-table-with-javascript
+// https://stackoverflow.com/questions/3149362/capture-key-press-or-keydown-event-on-div-element
