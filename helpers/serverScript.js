@@ -18,7 +18,7 @@ console.log('error count before: ' + errorCount);
 console.log('error count after: ' + errorCount);
         var wordsCount = numTypedChars / 5;
         var wpmCalc = (wordsCount - errorCount) / timeTaken;
-        var accuracyCalc = (numTypedChars / quote.length) * 100;
+        var accuracyCalc = ((numTypedChars - errorCount) / quote.length) * 100;
 
 console.log("wpm field before: " + typedRound.wpm);
 console.log("acc field before: " + typedRound.accuracy);
@@ -38,17 +38,24 @@ console.log("acc field after: " + typedRound.accuracy);
     getMessage : function(score) {
         var msgs = ["Perfect!", "Nice job!", "Not too shabby!", "Not bad; not good, but not bad.", "I have seen worse.", "Who needs computers anyways?!"];
         var msg;
+console.log('score before: ' + score);
+        score = parseFloat(score);
+console.log('score after: ' + score);
+
         switch (score) {
             case 100:
                 msg = msgs[0];
                 break;
             case score > 90:
+console.log('score is > 90!');
                 msg = msgs[1];
                 break;
             case score > 80:
+console.log('score is > 80!');
                 msg = msgs[2];
                 break;
             case score > 70:
+console.log('score is > 70!');
                 msg = msgs[3];
                 break;
             case score > 60:
