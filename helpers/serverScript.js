@@ -42,8 +42,8 @@ console.log('score before: ' + score);
         score = parseFloat(score);
 console.log('score after: ' + score);
 
-        switch (score) {
-            case 100:
+        switch (true) {
+            case score == 100:
                 msg = msgs[0];
                 break;
             case score > 90:
@@ -78,3 +78,4 @@ console.log('score is > 70!');
 // helpers:
 // https://www.speedtypingonline.com/typing-equations
 // https://stackoverflow.com/questions/35749288/separate-file-for-routes-in-express
+// https://stackoverflow.com/questions/5464362/javascript-using-a-condition-in-switch-case
