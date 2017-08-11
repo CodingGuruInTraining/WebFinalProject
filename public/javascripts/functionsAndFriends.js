@@ -189,6 +189,7 @@ function sortScoreTbl(tbody, col, asc) {
 
 
 
+
 /******
  BORDER COLOR CHANGING FUNCTION - typethis.hbs
  ******/
