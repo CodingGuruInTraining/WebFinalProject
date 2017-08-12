@@ -127,6 +127,10 @@ function addMyListeners() {
             numErrors++;
             errorFlag = false;
         }
+
+        if (e.which == 13) {
+            $('#doneBtn').trigger('click');
+        }
     })
 }
 
