@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="07244a36-952f-4e04-bc11-e08ba77c44d9" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/helpers/serverScript.js" afterPath="$PROJECT_DIR$/helpers/serverScript.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/index.js" afterPath="$PROJECT_DIR$/routes/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/results.hbs" afterPath="$PROJECT_DIR$/views/results.hbs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/table.hbs" afterPath="$PROJECT_DIR$/views/table.hbs" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -28,8 +26,8 @@
           <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/routes/index.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="204">
-                  <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+                <state relative-caret-position="527">
+                  <caret line="93" column="39" lean-forward="false" selection-start-line="93" selection-start-column="39" selection-end-line="93" selection-end-column="39" />
                   <folding />
                 </state>
               </provider>
@@ -89,7 +87,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="serverScript.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="serverScript.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/helpers/serverScript.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="408">
@@ -109,11 +107,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="table.hbs" pinned="false" current-in-tab="false">
+          <file leaf-file-name="table.hbs" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/views/table.hbs">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="357">
-                  <caret line="21" column="46" lean-forward="false" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
+                <state relative-caret-position="408">
+                  <caret line="24" column="17" lean-forward="true" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
                   <folding />
                 </state>
               </provider>
@@ -152,13 +150,13 @@
         <option value="$PROJECT_DIR$/helpers/quoteGrabber.js" />
         <option value="$PROJECT_DIR$/models/user.js" />
         <option value="$PROJECT_DIR$/models/typingRound.js" />
-        <option value="$PROJECT_DIR$/views/table.hbs" />
         <option value="$PROJECT_DIR$/public/stylesheets/style.css" />
         <option value="$PROJECT_DIR$/views/typethis.hbs" />
         <option value="$PROJECT_DIR$/public/javascripts/functionsAndFriends.js" />
         <option value="$PROJECT_DIR$/helpers/serverScript.js" />
         <option value="$PROJECT_DIR$/views/results.hbs" />
         <option value="$PROJECT_DIR$/routes/index.js" />
+        <option value="$PROJECT_DIR$/views/table.hbs" />
       </list>
     </option>
   </component>
@@ -499,14 +497,7 @@
       <workItem from="1501973143728" duration="11393000" />
       <workItem from="1502044150562" duration="2348000" />
       <workItem from="1502406315387" duration="7662000" />
-      <workItem from="1502499511723" duration="1161000" />
-    </task>
-    <task id="LOCAL-00024" summary="tweaked parts that gave errors. db parts are getting closer to working.">
-      <created>1495166747701</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1495166747701</updated>
+      <workItem from="1502499511723" duration="1378000" />
     </task>
     <task id="LOCAL-00025" summary="tried debugging results route">
       <created>1495316202801</created>
@@ -844,11 +835,18 @@
       <option name="project" value="LOCAL" />
       <updated>1502413630171</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="removed number formatting library since heroku is not a fan">
+      <created>1502501693607</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1502501693608</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="217408000" />
+    <option name="totallyTimeSpent" value="217625000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -880,7 +878,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="started implementing table sort found on internet" />
     <MESSAGE value="added CSS to signup page" />
     <MESSAGE value="added CSS to typing page" />
     <MESSAGE value="made function for changing border depending on errors" />
@@ -905,7 +902,8 @@
     <MESSAGE value="changed events to go off of div instead of window" />
     <MESSAGE value="worked on correcting message function" />
     <MESSAGE value="fixed switch case" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed switch case" />
+    <MESSAGE value="removed number formatting library since heroku is not a fan" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed number formatting library since heroku is not a fan" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1227,26 +1225,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/table.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="46" lean-forward="false" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/functionsAndFriends.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="489">
           <caret line="189" column="0" lean-forward="false" selection-start-line="189" selection-start-column="0" selection-end-line="189" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/typethis.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="35" lean-forward="false" selection-start-line="0" selection-start-column="35" selection-end-line="0" selection-end-column="35" />
           <folding />
         </state>
       </provider>
@@ -1277,8 +1259,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        <state relative-caret-position="527">
+          <caret line="93" column="39" lean-forward="false" selection-start-line="93" selection-start-column="39" selection-end-line="93" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/typethis.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="35" lean-forward="false" selection-start-line="0" selection-start-column="35" selection-end-line="0" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/table.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="17" lean-forward="true" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
           <folding />
         </state>
       </provider>
