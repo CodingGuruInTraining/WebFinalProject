@@ -1,20 +1,22 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+
 // Gets a random quote from API.
 var quoteGrab = require('../helpers/quoteGrabber');
-// Variable to hold the random quote string.
+
+// Empty variables to hold values later.
 var quote;
 var currentUser;
+
+// Grabs the model.
 var Round = require('../models/typingRound');
 
-
+// Grabs server functions.
 var myFunctions = require('../helpers/serverScript');
 
 
-// var Handlebars = require("handlebars");
-// var NumeralHelper = require("handlebars.numeral");
-// NumeralHelper.registerHelpers(Handlebars);
+
 
 
 /* GET home page. */
@@ -23,17 +25,19 @@ router.get('/', isLoggedIn, function(req, res, next) {
 });
 
 router.get('/table', isLoggedIn, function(req, res, next) {
+    // Queries database for all entries.
     Round.find({}, function(err, docs) {
+        // TODO probably can find the current user's scores this way.
         if(err) {
             return next(err);
         }
-
+        // Sorts results with the largest WPM at the top.
         docs.sort(function(a,b) {
             return b.wpm - a.wpm;
         });
 
-// TODO refactor name later
-        res.render('table', {title: "Speed Typing Stat Tracker", users: docs});
+        // Renders page with the returned query results.
+        res.render('table', {title: "Speed Typing Stat Tracker", typingScores: docs});
     });
 });
 
@@ -89,6 +93,7 @@ router.get('/typethis', isLoggedIn, function(req, res, next) {
         if (error) {
             res.render('error', {error: error.message});
         }
+        // Stores quote in variable and removes any trailing spaces.
         quote = data[0].trim();
         // Renders page.
         res.render('typethis', { msgToType: quote });
@@ -100,19 +105,13 @@ router.get('/typethis', isLoggedIn, function(req, res, next) {
 
 
 
-// GET results page
-// router.get('/results', function(req, res, next) {
-//     res.render('results')
-// });
-
 // POST results page
 router.post('/results', function(req, res, next) {
     // Captures passed values into variables.
-console.log(req.body);
     var inputText = req.body.typedText;
     var numOfErrors = req.body.numErrors;
     var totalTime = req.body.timeTaken;
-console.log('inputText: ' + inputText);
+
     // Creates a JSON object of fields and values for new Round object.
     var newEntry = {user: currentUser.local.username,
                     time: totalTime,
@@ -121,7 +120,7 @@ console.log('inputText: ' + inputText);
                     userid: currentUser._id};
     // Creates new Round object.
     var newRound = new Round(newEntry);
-
+    // Runs functions to receive calculated values.
     newRound = myFunctions.calcAccuracy(newRound, quote);
     var msg = myFunctions.getMessage(newRound.accuracy);
 
@@ -132,14 +131,14 @@ console.log('inputText: ' + inputText);
             throw err;
         }
         // Renders page.
-        res.render('results', {greet: msg, mydata: newRound});
+        res.render('results', {accuracyMessage: msg, typingRoundData: newRound});
     });
 });
 
 
 
 
-// GET Another button's action.
+// GET 'Another' button's action.
 router.get('/anotherGo', function(req, res) {
     res.redirect('/typethis');
 });
@@ -150,6 +149,7 @@ router.get('/anotherGo', function(req, res) {
 // Function to check authentication before continuing.
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
+        // Stores current user object in variable for use later.
         currentUser = req.user;
         return next();
     }

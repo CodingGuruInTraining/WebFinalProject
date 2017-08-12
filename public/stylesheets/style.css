@@ -125,7 +125,6 @@ TYPING PAGE
 }
 
 #typedText {
-    /*width: 50%;*/
     height: 28px;
     font: 20px MV Boli;
 }
@@ -136,10 +135,6 @@ TYPING PAGE
 /******
 RESULTS PAGE
 ******/
-
-#resultsDiv {
-    /*text-align: center;*/
-}
 
 #innerResultsDiv {
     display: inline-block;

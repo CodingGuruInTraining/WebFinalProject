@@ -13,6 +13,7 @@ var scoreTbl, asc1 = 1;
 
 // Function ran at start that adds event listeners to specific elements.
 function addMyListeners() {
+
 /******
  START BUTTON - typethis.hbs
  ******/
@@ -64,68 +65,69 @@ function addMyListeners() {
 /******
  TYPING EVENTS - typethis.hbs
  ******/
-    // $(document).ready(function() {
+    // Prevents Copy and Paste within div.
+    $('#typingMessage').bind('copy', function() {
+        console.log("trying to copy is wrong!");
+        return false;
+    });
+    $('#typingMessage').bind('paste', function() {
+        console.log("trying to paste is wrong!");
+        return false;
+    });
 
-        $('#typingMessage').bind('copy', function() {
-            console.log("trying to copy is wrong!");
-            return false;
-        });
-        $('#typingMessage').bind('paste', function() {
-            console.log("trying to paste is wrong!");
-            return false;
-        });
+    // Keypress event that checks input for correct values.
+    $('#typingMessage').keypress(function(e) {
+        // Prevents any further action if flags are set.
+        if (youMayStart == false || winner == true) { return false; }
+        // Checks if variable is empty and assigns string value to it.
+        if (setString == null) {
+            setString = $('#msgToType').text();
+            //// Splits string into char array. Currently not in use.
+            // for (var i = 0; i < setString.length; i++) {
+            //     setStringArray[i] = setString.charCodeAt(i);
+            // }
+        }
+        // Grabs value entered already.
+        var typedString = $('#typedText').text();
+        // Runs function to check if strings match.
+        if (checkWin(setString, typedString)) { return; }
 
-        $('#typingMessage').keypress(function(e) {
-            if (youMayStart == false || winner == true) { return false; }
-            // Checks if variable is empty and assigns string value to it.
-            if (setString == null) {
-                setString = $('#msgToType').text();
-                // Splits string into char array.
-                for (var i = 0; i < setString.length; i++) {
-                    setStringArray[i] = setString.charCodeAt(i);
+        // Loops through element value.
+        for (i = 0; i < typedString.length; i++) {
+            // Compares each character.
+            if (setString.charAt(i) != typedString.charAt(i)) {
+                // Checks for periods, which don't seem to work in above check.
+                if (setString.charAt(i) != "." && typedString.charAt(i) != ".") {
+                    // Sets flag and runs border color changing function.
+                    errorFlag = true;
+                    borderColor(1);
+                    return;
                 }
             }
+        }
+        // Combines current value with entered key and adds to element.
+        var newString = typedString + String.fromCharCode(e.which);
+        $('#typedText').text(newString);
+        checkWin(setString, newString);
+    });
 
+    // Keyup event that checks for certain keys.
+    $('#typingMessage').keyup(function(e) {
+        // Checks for backspace keypress.
+        if (e.keyCode == 8) {
+            // Captures element's value and slices it.
             var typedString = $('#typedText').text();
-            if (checkWin(setString, typedString)) { return; }
+            typedString = typedString.slice(0, -1);
+            $('#typedText').text(typedString);
+            // Resets border color.
+            borderColor(999);
+        }
 
-            // Loops through element value.
-            for (i = 0; i < typedString.length; i++) {
-                // Compares each character.
-                if (setString.charAt(i) != typedString.charAt(i)) {
-                    // Checks for periods, which don't seem to work in above check.
-                    if (setString.charAt(i) != "." && typedString.charAt(i) != ".") {
-                        // Sets flag and runs border color changing function.
-                        errorFlag = true;
-                        borderColor(1);
-                        return;
-                    }
-                }
-            }
-            var newString = typedString + String.fromCharCode(e.which);
-            $('#typedText').text(newString);
-            checkWin(setString, newString);
-        });
-
-        $('#typingMessage').keyup(function(e) {
-            // Checks for backspace keypress.
-            if (e.keyCode == 8) {
-                // Captures element's value and slices it.
-                var typedString = $('#typedText').text();
-                typedString = typedString.slice(0, -1);
-                $('#typedText').text(typedString);
-                // Resets border color.
-                borderColor(999);
-            }
-
-            if (errorFlag) {
-                numErrors++;
-                errorFlag = false;
-            }
-        })
-    // }
-    // )
-
+        if (errorFlag) {
+            numErrors++;
+            errorFlag = false;
+        }
+    })
 }
 
 
@@ -134,7 +136,6 @@ function addMyListeners() {
 /******
  TABLE SORT FUNCTION - table.hbs
  ******/
-
 function sortScoreTbl(tbody, col, asc) {
     asc1 *= -1;
     // Captures 'tr's in variable.
@@ -156,10 +157,8 @@ function sortScoreTbl(tbody, col, asc) {
             rowsArray[i][j] = rowCells[j].innerHTML;
         }
     }
-//TODO sort is only flipping rows, not actually sorting them.
     rowsArray.sort(function(a, b) {
-        // return (a[col] === b[col] ? 0 : ((a[col] > b[col]) ? asc : (-1 * asc)))
-
+        // Makes default return value variable and parses passed values.
         var retval = 0;
         var fA = parseFloat(a[col]);
         var fB = parseFloat(b[col]);
@@ -181,9 +180,6 @@ function sortScoreTbl(tbody, col, asc) {
     for (i = 0; i < numRows; i++) {
         myRows[i].innerHTML = "<td>" + rowsArray[i].join("</td><td>") + ("</td>");
     }
-
-    // asc1 *= -1;
-
 }
 
 
@@ -214,6 +210,7 @@ function borderColor(option) {
 
 
 
+
 /******
  WIN CHECK FUNCTION - typethis.hbs
  ******/
@@ -232,7 +229,7 @@ function checkWin(string1, string2) {
 addMyListeners();
 scoreTbl = $('#tblRows');
 $('#typingMessage').focus();
-// sortScoreTbl(scoreTbl, 4, asc1);
+
 
 
 

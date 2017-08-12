@@ -1,61 +1,58 @@
 module.exports = {
-
+    // Function that calculates values from the passed data.
     calcAccuracy : function(typedRound, quote)
     {
-console.log('starting calculations');
+        // Grabs values from passed data.
         var numTypedChars = typedRound.typedText.length;
-console.log('typed length count: ' + numTypedChars);
         var errorCount = typedRound.numErrors;
-        var timeTaken = typedRound.time / 60;
+        var timeTaken = typedRound.time / 60;   // Converted to minutes for WPM calculation.
 
-console.log('quote length: ' + quote.length);
-console.log('error count before: ' + errorCount);
+        // Checks if the user submitted a shorter string and gave up early.
+        // Each missed character counts as another error and is added
+        // to the total.
         if (quote.length > numTypedChars) {
             var diff = 0;
             diff += (quote.length - numTypedChars);
             errorCount += diff;
         }
-console.log('error count after: ' + errorCount);
-        var wordsCount = numTypedChars / 5;
+        // Calculates values.
+        var wordsCount = numTypedChars / 5; // This calc balances words of different length.
         var wpmCalc = (wordsCount - errorCount) / timeTaken;
+        // Accuracy is determined by removing the number of errors from the number
+        // of typed characters and divided by the length of the quote string.
+        // It should be the percentage of the quote the user correctly typed
+        // without errors.
         var accuracyCalc = ((numTypedChars - errorCount) / quote.length) * 100;
 
-console.log("wpm field before: " + typedRound.wpm);
-console.log("acc field before: " + typedRound.accuracy);
+        // Updates the data object's values while also reducing the number
+        // of decimal places.
+        typedRound.wpm = wpmCalc.toFixed(2);
+        typedRound.accuracy = accuracyCalc.toFixed(0);
+        typedRound.numErrors = errorCount;
 
-    typedRound.wpm = wpmCalc.toFixed(2);
-    typedRound.accuracy = accuracyCalc.toFixed(0);
-    typedRound.numErrors = errorCount;
-
-console.log("wpm field after: " + typedRound.wpm);
-console.log("acc field after: " + typedRound.accuracy);
-
-
-
-    return typedRound;
+        // Sends data object back to be saved.
+        return typedRound;
     },
 
+
+
+    // Function that determines which message to show user depending on their accuracy score.
     getMessage : function(score) {
+        // Static list of messages.
         var msgs = ["Perfect!", "Nice job!", "Not too shabby!", "Not bad; not good, but not bad.", "I have seen worse.", "Who needs computers anyways?!"];
         var msg;
-console.log('score before: ' + score);
-        score = parseFloat(score);
-console.log('score after: ' + score);
-
+        // Determines which message to return.
         switch (true) {
             case score == 100:
                 msg = msgs[0];
                 break;
             case score > 90:
-console.log('score is > 90!');
                 msg = msgs[1];
                 break;
             case score > 80:
-console.log('score is > 80!');
                 msg = msgs[2];
                 break;
             case score > 70:
-console.log('score is > 70!');
                 msg = msgs[3];
                 break;
             case score > 60:
@@ -67,7 +64,6 @@ console.log('score is > 70!');
         }
         return msg;
     }
-
 };
 
 
