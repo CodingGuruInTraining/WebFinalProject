@@ -23,8 +23,8 @@ console.log('error count after: ' + errorCount);
 console.log("wpm field before: " + typedRound.wpm);
 console.log("acc field before: " + typedRound.accuracy);
 
-    typedRound.wpm = wpmCalc;
-    typedRound.accuracy = accuracyCalc;
+    typedRound.wpm = wpmCalc.toFixed(2);
+    typedRound.accuracy = accuracyCalc.toFixed(0);
     typedRound.numErrors = errorCount;
 
 console.log("wpm field after: " + typedRound.wpm);

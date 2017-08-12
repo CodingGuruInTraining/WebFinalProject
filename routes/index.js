@@ -12,9 +12,9 @@ var Round = require('../models/typingRound');
 var myFunctions = require('../helpers/serverScript');
 
 
-var Handlebars = require("handlebars");
-var NumeralHelper = require("handlebars.numeral");
-NumeralHelper.registerHelpers(Handlebars);
+// var Handlebars = require("handlebars");
+// var NumeralHelper = require("handlebars.numeral");
+// NumeralHelper.registerHelpers(Handlebars);
 
 
 /* GET home page. */
