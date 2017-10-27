@@ -26,17 +26,15 @@ router.get('/', isLoggedIn, function(req, res, next) {
 
 router.get('/table', isLoggedIn, function(req, res, next) {
     // Queries database for all entries.
-    Round.find({}, function(err, docs) {
+    Round.find({}).sort( { wpm : 1 } , function(err, docs) {
         // TODO probably can find the current user's scores this way.
         if(err) {
             return next(err);
         }
-        // Sorts results with the largest WPM at the top.
-        docs.sort(function(a,b) {
-            return b.wpm - a.wpm;
-        });
 
-        // Renders page with the returned query results.
+        
+        // Sorts results with the largest WPM at the top.
+                // Renders page with the returned query results.
         res.render('table', {title: "Speed Typing Stat Tracker", typingScores: docs});
     });
 });

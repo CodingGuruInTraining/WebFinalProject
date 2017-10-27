@@ -9,6 +9,16 @@ var winner = false;         // Flag that string has been completed.
 
 var scoreTbl, asc1 = 1;
 
+// Example function to be tested. A really bad diff counter
+function strDiffs(a, b) {
+  var diffs = 0;
+  if ( a[0] != b[0] )  { diffs++ ; }
+  if ( a[1] != b[1] )  { diffs++ ; }
+  // Surely we won't have to deal with strings longer than 2 chars.
+  return diffs;
+
+}
+
 
 
 // Function ran at start that adds event listeners to specific elements.

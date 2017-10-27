@@ -27,6 +27,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', hbs({extname: '.hbs', defaultLayout: 'layout'}));
 app.set('view engine', 'hbs');
 
+// var url = 'mongodb://localhost:27017/spddata';
+// mongoose.connect(url);
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -35,7 +38,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var url = process.env.MDB;
+var url =  'mongodb://dbUser:123abc@localhost:27017/spddata?authSource=admin';
+// var session_url = 'mongodb://localhost:27017/spddata_sessions';
 
 app.use(session({
     secret:'somethin',
@@ -48,6 +52,7 @@ require('./config/passport')(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
 
 mongoose.connect(url);
 
